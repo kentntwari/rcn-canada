@@ -4,9 +4,83 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-site;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@layer base {
+  :root {
+    --color-site: 23deg 100% 97%;
+    --color-text: 17deg 33% 4%;
+    --color-brand: 240deg 45% 12%;
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 100;
+    src: url("/public/fonts/Mersad-ExtraLight.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 200;
+    src: url("/public/fonts/Mersad-Thin.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 300;
+    src: url("/public/fonts/Mersad-Light.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 400;
+    src: url("/public/fonts/Mersad-Regular.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 500;
+    src: url("/public/fonts/Mersad-Medium.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 600;
+    src: url("/public/fonts/Mersad-SemiBold.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 700;
+    src: url("/public/fonts/Mersad-Bold.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 800;
+    src: url("/public/fonts/Mersad-ExtraBold.ttf") format("ttf");
+  }
+
+  @font-face {
+    font-family: "Mersad";
+    font-weight: 900;
+    src: url("/public/fonts/Mersad-Black.ttf") format("ttf");
+  }
+}
+
+@layer utilities {
+  .apply-row-span {
+    /* grid-row-start: 1;
+    grid-row-end: 3; */
+
+    @media screen and (max-width: 743px) {
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    @media screen and (min-width: 744px) {
+      grid-row-start: 1;
+    }
   }
 }
