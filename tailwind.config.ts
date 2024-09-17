@@ -1,4 +1,3 @@
-import { text } from "stream/consumers";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -15,7 +14,7 @@ export default {
       center: true,
     },
     fontFamily: {
-      body: ['"Mersad"', "Arial", "Inter", "sans-serif"],
+      body: ["Mersad", "sans-serif"],
     },
     colors: ({ colors }) => ({
       site: "hsl(var(--color-site))",
