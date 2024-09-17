@@ -132,7 +132,7 @@ export default function Index() {
         </p>
       </section>
 
-      <section
+      {/* <section
         id="events"
         className="mt-[120px] md:mt-[240px] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
       >
@@ -162,7 +162,7 @@ export default function Index() {
         ) : (
           <Carousel />
         )}
-      </section>
+      </section> */}
 
       <footer
         id="connect"
