@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.5.4",
     "isbot": "^4.1.0",
+    "locomotive-scroll": "^5.0.0-beta.21",
     "lucide-react": "^0.441.0",
     "nanoid": "^5.0.7",
     "react": "^18.2.0",

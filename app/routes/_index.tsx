@@ -43,7 +43,7 @@ export default function Index() {
     <>
       <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
         <div className="relative lg:max-h-[95vh] lg:max-h-[95dvh] col-start-1 col-span-1 row-start-1 row-span-1 before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-t before:from-brand before:via-brand/80 before:via-70% before:to-brand/50 ">
-          <video
+          {/* <video
             className="block w-full h-full object-cover rounded-lg"
             autoPlay
             loop
@@ -52,9 +52,9 @@ export default function Index() {
           >
             <source src="/video/pastor_ola_at_iec_2024.mp4" type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
         </div>
-        <nav className="mt-6 2xl:mt-10 px-3 md:px-10 container h-fit col-start-1 col-span-1 row-start-1 z-10 flex items-start justify-between">
+        <nav className="relative mt-6 2xl:mt-10 px-3 md:px-10 container h-fit col-start-1 col-span-1 row-start-1 z-50 flex items-start justify-between">
           <img
             className="h-16"
             aria-label="logo"
