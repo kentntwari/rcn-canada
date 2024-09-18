@@ -398,7 +398,7 @@ const connectWithUs = [
   {
     channel: "phone",
     title: "on a call",
-    data: ["+1 647 896 2347", "+1 647 773 0670"],
+    data: ["+1 289 408 8277", "+1 647 773 0670"],
   },
   {
     channel: "socials",
