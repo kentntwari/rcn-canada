@@ -175,7 +175,8 @@ export default function Index() {
                     *Free registration
                   </small>
                   <Link
-                    to="/"
+                    to="https://www.eventbrite.com/e/understanding-spiritual-things-tickets-1002414878887?fbclid=IwY2xjawFWrKtleHRuA2FlbQIxMAABHTCISSD6cGqVBE23oat5mrbZYjZL_sNc-OCagHC6A8rW6F-dmQypTdwanQ_aem_cW0LQO4tVQtkwIxy5HiKlw"
+                    target="_blank"
                     className="bg-[#fff] w-[152px] h-12 flex items-center justify-center uppercase font-bold text-text rounded-full"
                   >
                     Get Started
