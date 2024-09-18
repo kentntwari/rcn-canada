@@ -33,10 +33,10 @@ function placeFooterContent(content: (typeof connectWithUs)[number]) {
     return "col-start-1 row-start-1 md:row-start-2 col-span-2 md:col-span-3";
 
   if (content.channel === "phone")
-    return "col-start-3 md:col-start-6 row-start-1 col-span-2 md:col-span-3 justify-self-end";
+    return "col-start-3 md:col-start-6 row-start-1 col-span-2 md:col-span-3 justify-self-end md:justify-self-start";
 
   if (content.channel === "socials")
-    return "col-start-1 md:col-start-5 row-start-2 col-span-1 md:col-span-2";
+    return "col-start-1 md:col-start-6 row-start-2 col-span-1 md:col-span-3";
 
   if (content.channel === "email")
     return "col-start-1 row-start-3 md:row-start-1 col-span-8";
@@ -54,7 +54,7 @@ export default function Index() {
   return (
     <>
       <IKContext urlEndpoint={imagekitURL}>
-        <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
+        {/* <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
           <BlurFade
             delay={0.25}
             inView
@@ -185,7 +185,7 @@ export default function Index() {
               </BlurFade>
             </div>
           </footer>
-        </header>
+        </header> */}
 
         <section
           id="about"
@@ -205,7 +205,7 @@ export default function Index() {
           </BlurFade>
         </section>
 
-        <section
+        {/* <section
           id="events"
           className="mt-[120px] md:mt-[240px] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
         >
@@ -275,7 +275,7 @@ export default function Index() {
               <Carousel />
             </BlurFade>
           )}
-        </section>
+        </section> */}
 
         <footer
           id="connect"
@@ -422,7 +422,7 @@ const connectWithUs = [
   {
     channel: "email",
     title: "by email",
-    data: ["info@remnantchristiancanada.com"],
+    data: ["info@rcncanada.com"],
   },
 ] as const;
 
