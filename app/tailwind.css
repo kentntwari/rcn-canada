@@ -17,55 +17,64 @@ body {
   @font-face {
     font-family: "Mersad";
     font-weight: 100;
-    src: url("/public/fonts/Mersad-ExtraLight.ttf") format("ttf");
+    src: url("/fonts/mersad-extralight.woff2") format("woff2"),
+      url("/fonts/mersad-extralight.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 200;
-    src: url("/public/fonts/Mersad-Thin.ttf") format("ttf");
+    src: url("/fonts/mersad-thin.woff2") format("woff2"),
+      url("/fonts/mersad-thin.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 300;
-    src: url("/public/fonts/Mersad-Light.ttf") format("ttf");
+    src: url("/fonts/mersad-light.woff2") format("woff2"),
+      url("/fonts/mersad-light.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 400;
-    src: url("/public/fonts/Mersad-Regular.ttf") format("ttf");
+    src: url("/fonts/mersad-regular.woff2") format("woff2"),
+      url("/fonts/mersad-regular.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 500;
-    src: url("/public/fonts/Mersad-Medium.ttf") format("ttf");
+    src: url("/fonts/mersad-medium.woff2") format("woff2"),
+      url("/fonts/mersad-medium.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 600;
-    src: url("/public/fonts/Mersad-SemiBold.ttf") format("ttf");
+    src: url("/fonts/mersad-semibold.woff2") format("woff2"),
+      url("/fonts/mersad-semibold.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 700;
-    src: url("/public/fonts/Mersad-Bold.ttf") format("ttf");
+    src: url("/fonts/mersad-bold.woff2") format("woff2"),
+      url("/fonts/mersad-bold.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 800;
-    src: url("/public/fonts/Mersad-ExtraBold.ttf") format("ttf");
+    src: url("/fonts/mersad-extrabold.woff2") format("woff2"),
+      url("/fonts/mersad-extrabold.woff") format("woff");
   }
 
   @font-face {
     font-family: "Mersad";
     font-weight: 900;
-    src: url("/public/fonts/Mersad-Black.ttf") format("ttf");
+    src: url("/fonts/mersad-black.woff2") format("woff2"),
+      url("/fonts/mersad-black.woff") format("woff");
   }
 }
 
