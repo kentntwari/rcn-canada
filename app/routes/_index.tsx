@@ -4,7 +4,7 @@ import { Fragment, useState } from "react";
 import { Link } from "@remix-run/react";
 
 import { nanoid } from "nanoid";
-import { AlignRight } from "lucide-react";
+import { AlignRight, X } from "lucide-react";
 import { IKImage, IKVideo, IKContext } from "imagekitio-react";
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
@@ -47,6 +47,8 @@ function placeFooterContent(content: (typeof connectWithUs)[number]) {
 const imagekitURL = "https://ik.imagekit.io/2rtor9l9w";
 
 export default function Index() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const isBigScreen = useMediaQuery("(min-width: 1024px)");
 
   return (
@@ -80,15 +82,30 @@ export default function Index() {
             inView
             className="relative mt-6 2xl:mt-10 px-3 md:px-10 container h-fit col-start-1 col-span-1 row-start-1 z-50"
           >
-            <nav className="flex items-start justify-between">
+            <nav className="relative flex items-start justify-between">
               <img
                 className="h-16"
                 aria-label="logo"
                 src="/img/whitercnlogo.png"
                 alt="remnant christian network canada logo"
               />
-              <AlignRight size={32} className="lg:hidden text-site" />
-              <div className="hidden lg:flex gap-10 uppercase text-site">
+              <button
+                aria-label="toggle menu"
+                onClick={() => setIsOpen((prev) => !prev)}
+                className="lg:hidden text-site"
+              >
+                {isOpen ? (
+                  <X size={32} className="text-site" />
+                ) : (
+                  <AlignRight size={32} className="text-site" />
+                )}
+              </button>
+
+              <div
+                className={`absolute left-0 top-20 lg:static py-4 lg:py-0 w-full lg:w-fit bg-site lg:bg-[transparent] ${
+                  isOpen ? "flex" : "hidden"
+                } lg:flex flex-col lg:flex-row items-center lg:items-start gap-10 uppercase text-text lg:text-site rounded-lg lg:rounded-none`}
+              >
                 <Link to="#about">About us</Link>
                 <Link to="#events">Upcoming events</Link>
                 <Link to="#connect">Connect with us</Link>
