@@ -54,7 +54,7 @@ export default function Index() {
   return (
     <>
       <IKContext urlEndpoint={imagekitURL}>
-        {/* <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
+        <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
           <BlurFade
             delay={0.25}
             inView
@@ -185,7 +185,7 @@ export default function Index() {
               </BlurFade>
             </div>
           </footer>
-        </header> */}
+        </header>
 
         <section
           id="about"
@@ -205,7 +205,7 @@ export default function Index() {
           </BlurFade>
         </section>
 
-        {/* <section
+        <section
           id="events"
           className="mt-[120px] md:mt-[240px] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
         >
@@ -275,7 +275,7 @@ export default function Index() {
               <Carousel />
             </BlurFade>
           )}
-        </section> */}
+        </section>
 
         <footer
           id="connect"
