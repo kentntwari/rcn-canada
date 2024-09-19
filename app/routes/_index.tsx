@@ -189,25 +189,40 @@ export default function Index() {
 
         <section
           id="about"
-          className="container px-3 md:px-10 mt-[calc(6rem+169px)] md:mt-40 lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
+          className="container px-3 md:px-10 mt-[calc(6rem+169px)] md:mt-[50vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
         >
           <BlurFade
-            delay={0.25 * 1.5}
+            delay={0.25}
             inView
-            className="lg:col-start-4 xl:col-start-4 2xl:col-start-5 lg:col-span-5 xl:col-span-9"
+            className="lg:col-start-3 xl:col-start-4 2xl:col-start-3 lg:col-span-6 xl:col-span-9"
           >
-            <p className="2xl:max-w-5xl 2xl:justify-self-end font-normal text-text text-balance text-[40px] md:text-[64px] xl:text-[72px] leading-[52px] md:leading-[72px] xl:leading-[90px] -tracking-[1.5px]">
-              We are a ministry with a single minded focus on restoring the
-              prayer commission of the church in fulfillment of Jesus'
-              proclamation in Matthew 21:13 that, My house shall be called the
-              house of prayer
+            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] md:text-[64px] xl:text-[72px] leading-[52px] md:leading-[72px] xl:leading-[90px] -tracking-[1.5px]">
+              We are an interdenominational and non-denominational international
+              Ministry to the body of Christ with the mandate of restoring the
+              apostolic order and Christianity as was seen in the days of the
+              first generation of apostles of Jesus Christ, and thereby
+              heralding the coming of the Lord Jesus Christ in this end of the
+              age.
+            </p>
+          </BlurFade>
+
+          <BlurFade
+            delay={0.25 * 1.25}
+            className="mt-44 lg:col-start-3 xl:col-start-4 2xl:col-start-5 lg:col-span-6 xl:col-span-9"
+            inView
+          >
+            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] md:text-[64px] xl:text-[72px] leading-[52px] md:leading-[72px] xl:leading-[90px] -tracking-[1.5px]">
+              We seek only to see the coming of the King and His Kingdom until
+              His reality is furnished in the hearts of the sons of men. Our
+              major instruments of realizing this vision are Prayers, the Study
+              of the Word, and Breaking of Bread with one another.
             </p>
           </BlurFade>
         </section>
 
         <section
           id="events"
-          className="mt-[120px] md:mt-[240px] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
+          className="mt-[120px] md:mt-[40vh] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
         >
           <BlurFade
             delay={0.25 * 1.5}
@@ -282,7 +297,7 @@ export default function Index() {
           className="mt-[12rem] md:mt-60 lg:mt-[19rem] bg-brand"
         >
           <BlurFade
-            delay={0.25 * 2}
+            delay={0.25}
             className="container px-3 md:px-10 pt-10 2xl:pt-14 pb-4 space-y-[7.5rem]"
             inView
           >
@@ -427,6 +442,10 @@ const connectWithUs = [
 ] as const;
 
 const events = [
+  {
+    isMainEvent: false,
+    asset: "/RCN/poster-september-schedule.jpg",
+  },
   {
     isMainEvent: false,
     asset: "/RCN/poster-endued-with-power.jpg",
