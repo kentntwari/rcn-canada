@@ -13,6 +13,10 @@ type Item = {
 const items: Item[] = [
   {
     id: nanoid(),
+    imgSrc: "RCN/poster-september-schedule.jpg",
+  },
+  {
+    id: nanoid(),
     imgSrc: "RCN/poster-endued-with-power.jpg",
   },
   {
