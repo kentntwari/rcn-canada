@@ -211,7 +211,7 @@ export default function Index() {
             className="mt-[20vh] lg:col-start-3 xl:col-start-4 2xl:col-start-4 lg:col-span-6 xl:col-span-9"
             inView
           >
-            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px]-tracking-[1.5px]">
+            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px] -tracking-[1.5px]">
               We seek only to see the coming of the King and His Kingdom until
               His reality is furnished in the hearts of the sons of men. Our
               major instruments of realizing this vision are Prayers, the Study
