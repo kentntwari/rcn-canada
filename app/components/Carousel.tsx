@@ -21,19 +21,7 @@ const items: Item[] = [
   },
   {
     id: nanoid(),
-    imgSrc: "RCN/poster-monthly-friday-vigil.jpg",
-  },
-  {
-    id: nanoid(),
     imgSrc: "RCN/poster-understanding-spiritual-things.jpg",
-  },
-  {
-    id: nanoid(),
-    imgSrc: "RCN/poster-tabernacle-of-david.jpg",
-  },
-  {
-    id: nanoid(),
-    imgSrc: "RCN/poster-tuesday-weekly-service.jpg",
   },
 ];
 

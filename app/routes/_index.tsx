@@ -189,14 +189,14 @@ export default function Index() {
 
         <section
           id="about"
-          className="container px-3 md:px-10 mt-[calc(6rem+169px)] md:mt-[50vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
+          className="container px-3 md:px-10 mt-[calc(6rem+169px)] md:mt-[40vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
         >
           <BlurFade
             delay={0.25}
             inView
-            className="lg:col-start-3 xl:col-start-4 2xl:col-start-3 lg:col-span-6 xl:col-span-9"
+            className="lg:col-start-3 xl:col-start-4 2xl:col-start-4 lg:col-span-6 xl:col-span-9"
           >
-            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] md:text-[64px] xl:text-[72px] leading-[52px] md:leading-[72px] xl:leading-[90px] -tracking-[1.5px]">
+            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px] -tracking-[1.5px]">
               We are an interdenominational and non-denominational international
               Ministry to the body of Christ with the mandate of restoring the
               apostolic order and Christianity as was seen in the days of the
@@ -208,10 +208,10 @@ export default function Index() {
 
           <BlurFade
             delay={0.25 * 1.25}
-            className="mt-44 lg:col-start-3 xl:col-start-4 2xl:col-start-5 lg:col-span-6 xl:col-span-9"
+            className="mt-[20vh] lg:col-start-3 xl:col-start-4 2xl:col-start-4 lg:col-span-6 xl:col-span-9"
             inView
           >
-            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] md:text-[64px] xl:text-[72px] leading-[52px] md:leading-[72px] xl:leading-[90px] -tracking-[1.5px]">
+            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px]-tracking-[1.5px]">
               We seek only to see the coming of the King and His Kingdom until
               His reality is furnished in the hearts of the sons of men. Our
               major instruments of realizing this vision are Prayers, the Study
@@ -451,19 +451,7 @@ const events = [
     asset: "/RCN/poster-endued-with-power.jpg",
   },
   {
-    isMainEvent: false,
-    asset: "/RCN/poster-monthly-friday-vigil.jpg",
-  },
-  {
     isMainEvent: true,
     asset: "/RCN/poster-understanding-spiritual-things.jpg",
-  },
-  {
-    isMainEvent: false,
-    asset: "/RCN/poster-tabernacle-of-david.jpg",
-  },
-  {
-    isMainEvent: false,
-    asset: "/RCN/poster-tuesday-weekly-service.jpg",
   },
 ] as const;
