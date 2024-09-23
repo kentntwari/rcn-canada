@@ -1,11 +1,21 @@
 import type { MetaFunction } from "@remix-run/node";
+import type { EventsQueryType, ContactQueryType } from "../sanity";
 
-import { Fragment, useState } from "react";
-import { Link } from "@remix-run/react";
+import { Suspense, useState } from "react";
+import { Await, Link } from "@remix-run/react";
+import { defer } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 import { nanoid } from "nanoid";
 import { AlignRight, X } from "lucide-react";
-import { IKImage, IKVideo, IKContext } from "imagekitio-react";
+import { IKVideo, IKContext } from "imagekitio-react";
+
+import {
+  client,
+  queries,
+  EVENTS_QUERY_SCHEMA,
+  CONTACT_QUERY_SCHEMA,
+} from "../sanity";
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 
@@ -28,28 +38,26 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-function placeFooterContent(content: (typeof connectWithUs)[number]) {
-  if (content.channel === "location")
-    return "col-start-1 row-start-1 md:row-start-2 col-span-2 md:col-span-3";
-
-  if (content.channel === "phone")
-    return "col-start-3 md:col-start-6 row-start-1 col-span-2 md:col-span-3 justify-self-end md:justify-self-start";
-
-  if (content.channel === "socials")
-    return "col-start-1 md:col-start-6 row-start-2 col-span-1 md:col-span-3";
-
-  if (content.channel === "email")
-    return "col-start-1 row-start-3 md:row-start-1 col-span-8";
-
-  return "";
-}
-
 const imagekitURL = "https://ik.imagekit.io/2rtor9l9w";
+
+export async function loader() {
+  const events = client
+    .fetch<EventsQueryType>(queries.EVENTS_QUERY)
+    .then((res) => EVENTS_QUERY_SCHEMA.parse(res));
+
+  const contact = await client
+    .fetch<ContactQueryType>(queries.CONTACT_QUERY)
+    .then((res) => CONTACT_QUERY_SCHEMA.parse(res));
+
+  return defer({ contact, events });
+}
 
 export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
 
   const isBigScreen = useMediaQuery("(min-width: 1024px)");
+
+  const { contact, events } = useLoaderData<typeof loader>();
 
   return (
     <>
@@ -237,53 +245,67 @@ export default function Index() {
               className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(480px,1fr))] gap-11 items-center"
               inView
             >
-              {events.map((event, i) => (
-                <div
-                  key={nanoid()}
-                  className={`${
-                    event.isMainEvent ? "lg:col-start-2 lg:row-start-1" : ""
-                  } flex justify-center`}
-                >
-                  <Dialog
-                    transition={{
-                      type: "spring",
-                      stiffness: 200,
-                      damping: 24,
-                    }}
-                  >
-                    <DialogTrigger>
-                      <IKImage
-                        path={event.asset}
-                        transformation={[{ width: "400" }]}
-                        lqip={{ active: true, quality: 10 }}
-                        loading="lazy"
-                        // width={400}
-                        className={`${
-                          !event.isMainEvent
-                            ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
-                            : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
-                        } drop-shadow-md`}
-                      />
-                    </DialogTrigger>
-                    <DialogContainer>
-                      <DialogContent>
-                        <IKImage
-                          path={event.asset}
-                          transformation={[{ width: "400" }]}
-                          lqip={{ active: true, quality: 10 }}
-                          loading="lazy"
-                          // width={400}
-                          // className={`${
-                          //   !event.isMainEvent
-                          //     ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
-                          //     : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
-                          // } drop-shadow-md`}
-                        />
-                      </DialogContent>
-                    </DialogContainer>
-                  </Dialog>
-                </div>
-              ))}
+              <Suspense fallback={<p>Loading</p>}>
+                <Await resolve={events}>
+                  {(events) => {
+                    return [events.schedule, ...events.events].map(
+                      (event, i) => (
+                        <div
+                          key={nanoid()}
+                          className={`${
+                            event.isMainEvent
+                              ? "lg:col-start-2 lg:row-start-1"
+                              : ""
+                          } flex justify-center`}
+                        >
+                          <Dialog
+                            transition={{
+                              type: "spring",
+                              stiffness: 200,
+                              damping: 24,
+                            }}
+                          >
+                            <DialogTrigger>
+                              <figure
+                                style={{
+                                  backgroundImage: `url(${event.poster.metadata.lqip})`,
+                                  width: "400px",
+                                  height: "400px",
+                                }}
+                              >
+                                <img
+                                  src={`${event.poster.url}?w=400`}
+                                  loading="lazy"
+                                  className={`${
+                                    !event.isMainEvent
+                                      ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
+                                      : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
+                                  } drop-shadow-md`}
+                                />
+                              </figure>
+                            </DialogTrigger>
+                            <DialogContainer>
+                              <DialogContent>
+                                <figure
+                                  style={{
+                                    backgroundImage: `url(${event.poster.metadata.lqip})`,
+                                  }}
+                                >
+                                  <img
+                                    src={event.poster.url}
+                                    loading="lazy"
+                                    className={`md:w-[400px]`}
+                                  />
+                                </figure>
+                              </DialogContent>
+                            </DialogContainer>
+                          </Dialog>
+                        </div>
+                      )
+                    );
+                  }}
+                </Await>
+              </Suspense>
             </BlurFade>
           ) : (
             <BlurFade delay={0.25 & 2.75} inView>
@@ -307,7 +329,7 @@ export default function Index() {
               </h3>
 
               <div className="w-full grid grid-cols-4 md:grid-cols-8 gap-5 lg:flex lg:justify-between lg:items-start">
-                {connectWithUs.map((c) => (
+                {contact.map((c) => (
                   <div
                     key={c.channel}
                     className={`${placeFooterContent(
@@ -337,10 +359,10 @@ export default function Index() {
                               {c.data["street"]},
                             </span>
                             <span className="font-normal md:text-2xl text-balance leading-[30px]">
-                              {c.data["vicinity"]},
+                              {c.data["city"]} {c.data["province"]},
                             </span>
                             <span className="font-normal md:text-2xl text-balance leading-[30px]">
-                              {c.data["postalCode"]}
+                              {c.data["postcode"]}
                             </span>
                           </div>
                         ) : (
@@ -401,57 +423,18 @@ export default function Index() {
   );
 }
 
-const connectWithUs = [
-  {
-    channel: "location",
-    title: "on site",
-    data: {
-      street: "92 Ottawa St N.",
-      vicinity: "Hamilton ON",
-      postalCode: "L8H 3Z1",
-    },
-  },
-  {
-    channel: "phone",
-    title: "on a call",
-    data: ["+1 289 408 8277", "+1 647 773 0670"],
-  },
-  {
-    channel: "socials",
-    title: "online",
-    data: [
-      {
-        site: "facebook",
-        url: "https://www.facebook.com/rcncanada",
-      },
-      {
-        site: "youtube",
-        url: "https://www.youtube.com/@rcncanada",
-      },
-      {
-        site: "twitter",
-        url: "https://x.com/rcncanada",
-      },
-    ],
-  },
-  {
-    channel: "email",
-    title: "by email",
-    data: ["info@rcncanada.com"],
-  },
-] as const;
+function placeFooterContent(content: ContactQueryType[number]) {
+  if (content.channel === "location")
+    return "col-start-1 row-start-1 md:row-start-2 col-span-2 md:col-span-3";
 
-const events = [
-  {
-    isMainEvent: false,
-    asset: "/RCN/poster-september-schedule.jpg",
-  },
-  {
-    isMainEvent: false,
-    asset: "/RCN/poster-endued-with-power.jpg",
-  },
-  {
-    isMainEvent: true,
-    asset: "/RCN/poster-understanding-spiritual-things.jpg",
-  },
-] as const;
+  if (content.channel === "phone")
+    return "col-start-3 md:col-start-6 row-start-1 col-span-2 md:col-span-3 justify-self-end md:justify-self-start";
+
+  if (content.channel === "socials")
+    return "col-start-1 md:col-start-6 row-start-2 col-span-1 md:col-span-3";
+
+  if (content.channel === "email")
+    return "col-start-1 row-start-3 md:row-start-1 col-span-8";
+
+  return "";
+}
