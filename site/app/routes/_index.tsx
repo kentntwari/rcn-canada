@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import { Await, Link } from "@remix-run/react";
 import { defer } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { typeddefer, useTypedLoaderData } from "remix-typedjson";
 
 import { nanoid } from "nanoid";
 import { AlignRight, X } from "lucide-react";
@@ -49,7 +50,7 @@ export async function loader() {
     .fetch<ContactQueryType>(queries.CONTACT_QUERY)
     .then((res) => CONTACT_QUERY_SCHEMA.parse(res));
 
-  return defer({ contact, events });
+  return typeddefer({ contact, events });
 }
 
 export default function Index() {
@@ -57,7 +58,7 @@ export default function Index() {
 
   const isBigScreen = useMediaQuery("(min-width: 1024px)");
 
-  const { contact, events } = useLoaderData<typeof loader>();
+  const { contact, events } = useTypedLoaderData<typeof loader>();
 
   return (
     <>
@@ -239,17 +240,18 @@ export default function Index() {
           >
             <h3>Upcoming events</h3>
           </BlurFade>
-          {isBigScreen ? (
-            <BlurFade
-              delay={0.25 * 2.5}
-              className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(480px,1fr))] gap-11 items-center"
-              inView
-            >
-              <Suspense fallback={<p>Loading</p>}>
-                <Await resolve={events}>
-                  {(events) => {
-                    return [events.schedule, ...events.events].map(
-                      (event, i) => (
+
+          <Suspense fallback={<p>Loading</p>}>
+            <Await resolve={events}>
+              {(events) => (
+                <>
+                  {isBigScreen ? (
+                    <BlurFade
+                      delay={0.25 * 2.5}
+                      className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(480px,1fr))] gap-11 items-center"
+                      inView
+                    >
+                      {[events.schedule, ...events.events].map((event, i) => (
                         <div
                           key={nanoid()}
                           className={`${
@@ -258,6 +260,8 @@ export default function Index() {
                               : ""
                           } flex justify-center`}
                         >
+                          {/* TODO: configure fallback images.
+                           There should be a low-quality image blurred for this */}
                           <Dialog
                             transition={{
                               type: "spring",
@@ -266,52 +270,47 @@ export default function Index() {
                             }}
                           >
                             <DialogTrigger>
-                              <figure
-                                style={{
-                                  backgroundImage: `url(${event.poster.metadata.lqip})`,
-                                  width: "400px",
-                                  height: "400px",
-                                }}
-                              >
-                                <img
-                                  src={`${event.poster.url}?w=400`}
-                                  loading="lazy"
-                                  className={`${
-                                    !event.isMainEvent
-                                      ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
-                                      : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
-                                  } drop-shadow-md`}
-                                />
-                              </figure>
+                              <img
+                                src={`${event.poster.url}?w=400`}
+                                loading="lazy"
+                                className={`${
+                                  !event.isMainEvent
+                                    ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
+                                    : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
+                                } drop-shadow-md`}
+                              />
                             </DialogTrigger>
                             <DialogContainer>
                               <DialogContent>
-                                <figure
-                                  style={{
-                                    backgroundImage: `url(${event.poster.metadata.lqip})`,
-                                  }}
-                                >
-                                  <img
-                                    src={event.poster.url}
-                                    loading="lazy"
-                                    className={`md:w-[400px]`}
-                                  />
-                                </figure>
+                                <img
+                                  src={event.poster.url}
+                                  loading="lazy"
+                                  className={`md:w-[400px]`}
+                                />
                               </DialogContent>
                             </DialogContainer>
                           </Dialog>
                         </div>
-                      )
-                    );
-                  }}
-                </Await>
-              </Suspense>
-            </BlurFade>
-          ) : (
-            <BlurFade delay={0.25 & 2.75} inView>
-              <Carousel />
-            </BlurFade>
-          )}
+                      ))}
+                    </BlurFade>
+                  ) : (
+                    <BlurFade delay={0.25 & 2.75} inView>
+                      <Carousel
+                        data={[
+                          {
+                            ...events.schedule.poster,
+                          },
+                          ...events.events.map((event) => ({
+                            ...event.poster,
+                          })),
+                        ]}
+                      />
+                    </BlurFade>
+                  )}
+                </>
+              )}
+            </Await>
+          </Suspense>
         </section>
 
         <footer
