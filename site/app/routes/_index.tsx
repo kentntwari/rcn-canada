@@ -60,6 +60,8 @@ export default function Index() {
 
   const { contact, events } = useTypedLoaderData<typeof loader>();
 
+  const address = contact.find((c) => c.channel === "location")?.data;
+
   return (
     <>
       <IKContext urlEndpoint={imagekitURL}>
@@ -150,8 +152,8 @@ export default function Index() {
                   JESUS
                 </h1>
                 <span className="relative bottom-6 text-[24px] text-balance leading-[32px]">
-                  Join us every Tuesday at 7pm at 92 Ottawa st N., <br />
-                  Hamilton ON <br /> L8H 3Z1
+                  Join us every Tuesday at 7pm at {address?.street}, <br />
+                  {address?.city} {address?.province} {address?.postcode}
                 </span>
               </BlurFade>
               <BlurFade
@@ -166,8 +168,8 @@ export default function Index() {
                 className="md:hidden lg:block relative -top-8 lg:top-0 lg:max-w-[340px] row-start-2 lg:row-start-1 lg:row-end-2 lg:col-start-3 xl:col-start-5 lg:col-span-4 lg:ml-16 xl:ml-0 2xl:-ml-10 lg:mb-7 2xl:mb-10 px-3 md:px-0 self-end text-[24px] text-balance leading-[32px]"
                 inView
               >
-                Join us every Tuesday at 7pm at 92 Ottawa st N., <br />
-                Hamilton ON L8H 3Z1
+                Join us every Tuesday at 7pm at {address?.street}, <br />
+                {address?.city} {address?.province} {address?.postcode}
               </BlurFade>
 
               <BlurFade
