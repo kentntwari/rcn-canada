@@ -177,7 +177,7 @@ export default function Index() {
 
         <section
           id="about"
-          className="container px-3 md:px-10 mt-[calc(6rem+169px)] md:mt-[40vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
+          className="container px-3 md:px-10 mt-16 md:mt-[40vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
         >
           <BlurFade
             delay={0.25}
