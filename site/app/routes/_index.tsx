@@ -171,29 +171,6 @@ export default function Index() {
                 Join us every Tuesday at 7pm at {address?.street}, <br />
                 {address?.city} {address?.province} {address?.postcode}
               </BlurFade>
-
-              <BlurFade
-                delay={0.25 * 3}
-                className="relative lg:bottom-9 2xl:bottom-11 h-[243px] md:max-h-48 lg:max-h-[216px] lg:max-w-[418px] lg:justify-self-end xl:self-end lg:col-start-6 xl:col-start-9 lg:col-span-3 xl:col-span-4 row-start-3 lg:row-start-1 bg-brand/10 md:bg-[#ede9d0]/10 backdrop-blur-xl px-6 py-4 mt-2 md:mt-0 rounded-[40px] flex flex-col justify-between"
-                inView
-              >
-                <span className="font-bold text-2xl leading-[30px] text-balance text-text md:text-site">
-                  Register for the upcoming conference with Apostle Arome Osayi
-                  on November 8th & 9th
-                </span>
-                <div className="w-full flex justify-between items-center">
-                  <small className="font-bold text-base text-text md:text-site">
-                    *Free registration
-                  </small>
-                  <Link
-                    to="https://www.eventbrite.com/e/understanding-spiritual-things-tickets-1002414878887?fbclid=IwY2xjawFWrKtleHRuA2FlbQIxMAABHTCISSD6cGqVBE23oat5mrbZYjZL_sNc-OCagHC6A8rW6F-dmQypTdwanQ_aem_cW0LQO4tVQtkwIxy5HiKlw"
-                    target="_blank"
-                    className="bg-[#fff] w-[152px] h-12 flex items-center justify-center uppercase font-bold text-text rounded-full"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </BlurFade>
             </div>
           </footer>
         </header>
