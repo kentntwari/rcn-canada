@@ -157,7 +157,7 @@ export default function Index() {
                     Ways to give
                   </ModalTrigger>
                   <ModalBody>
-                    <ModalContent className="bg-site space-y-10 text-text">
+                    <ModalContent className="bg-site space-y-10 text-text overflow-y-auto">
                       <h2 className="uppercase font-bold text-4xl">GIVING</h2>
                       <div className="space-y-2">
                         <span className="block font-bold text-2xl">
@@ -172,7 +172,7 @@ export default function Index() {
                       </div>
                       <div className="space-y-2">
                         <span className="block font-bold text-2xl">
-                          *For US & Other International Residents
+                          *For US & Other international residents
                         </span>
                         <span className="block text-xl">
                           Send using this{" "}
@@ -245,7 +245,7 @@ export default function Index() {
                 Striving for the rebirth of apostolic christianity
               </span>
             </h1>
-            <div className="mb-4 w-12 h-20 bg-[#fff]/40 hidden md:flex items-center justify-center rounded-full animate-bounce">
+            <div className="mb-4 w-12 h-20 bg-[#fff]/40 flex items-center justify-center rounded-full animate-bounce">
               <MoveDown size={40} className="text-[#000]" />
             </div>
           </BlurFade>
