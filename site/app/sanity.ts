@@ -64,7 +64,7 @@ export const EVENTS_QUERY_SCHEMA = z.object({
 export const CONTACT_QUERY_SCHEMA = z.tuple([
   z.object({
     channel: z.literal("location"),
-    title: z.literal("on site"),
+    title: z.literal("Adress"),
     data: z.object({
       street: z.string(),
       city: z.string(),
@@ -74,12 +74,12 @@ export const CONTACT_QUERY_SCHEMA = z.tuple([
   }),
   z.object({
     channel: z.literal("phone"),
-    title: z.literal("on a call"),
+    title: z.literal("Phone"),
     data: z.array(z.string()),
   }),
   z.object({
     channel: z.literal("socials"),
-    title: z.literal("online"),
+    title: z.literal("Social media"),
     data: z.array(
       z.object({
         site: z.string(),
@@ -89,7 +89,7 @@ export const CONTACT_QUERY_SCHEMA = z.tuple([
   }),
   z.object({
     channel: z.literal("email"),
-    title: z.literal("by email"),
+    title: z.literal("Email"),
     data: z.array(z.string().email()),
   }),
 ]);
@@ -131,17 +131,17 @@ export const queries = {
   }`,
   CONTACT_QUERY: groq`[{
     "channel": "location",
-      "title":"on site",
+      "title":"Adress",
       "data": *[_type == "location"][0]{street,city,province,postcode}
   },
     {
       "channel": "phone",
-      "title": "on a call",
+      "title": "Phone",
       "data": *[_type == "socials"][0].phoneNumbers[].number,
     },
     {
       "channel":"socials",
-      "title":"online",
+      "title":"Social media",
       "data": [
         {
           "site":"facebook",
@@ -163,7 +163,7 @@ export const queries = {
     },
     {
           "channel": "email",
-        "title": "by email",
+        "title": "Email",
         "data": [*[_type == "socials"][0].email.address],
     }
   ]

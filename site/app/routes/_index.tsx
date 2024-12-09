@@ -25,6 +25,13 @@ import {
   CarouselNavigation,
   CarouselItem,
 } from "~/components/motion/Carousel";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalTrigger,
+} from "~/components/acertinity/Modal";
 import UILayoutCarousel from "~/components/uiLayout/Carousel";
 
 export const meta: MetaFunction = () => {
@@ -122,7 +129,7 @@ export default function Index() {
               <button
                 aria-label="toggle menu"
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="lg:hidden text-site"
+                className="slg:hidden text-site"
               >
                 {isOpen ? (
                   <X size={32} className="text-site" />
@@ -132,23 +139,92 @@ export default function Index() {
               </button>
 
               <div
-                className={`absolute left-0 top-20 lg:static py-4 lg:py-0 w-full lg:w-fit bg-site lg:bg-[transparent] ${
+                className={`absolute left-0 top-20 slg:static py-4 slg:py-0 w-full slg:w-fit bg-site slg:bg-[transparent] ${
                   isOpen ? "flex" : "hidden"
-                } lg:flex flex-col lg:flex-row items-center lg:items-start gap-10 uppercase text-text lg:text-site rounded-lg lg:rounded-none`}
+                } slg:flex flex-col items-center slg:items-start gap-10 slg:gap-4 uppercase text-text slg:text-site rounded-lg slg:rounded-none`}
               >
                 <Link to="#about">About us</Link>
                 <Link to="#events">Upcoming events</Link>
+                <Modal>
+                  <ModalTrigger className="p-0 uppercase">
+                    Ways to give
+                  </ModalTrigger>
+                  <ModalBody>
+                    <ModalContent className="bg-site space-y-10 text-text">
+                      <h2 className="uppercase font-bold text-4xl">GIVING</h2>
+                      <div className="space-y-2">
+                        <span className="block font-bold text-2xl">
+                          *For Canada residents only
+                        </span>
+                        <span className="block text-xl">
+                          Send an INTERAC e-transfer fron your bank app at{" "}
+                          <span className="underline font-bold">give@rcncanada.com</span>
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <span className="block font-bold text-2xl">
+                          *For US & Other International Residents
+                        </span>
+                        <span className="block text-xl">
+                          Send using this{" "}
+                          <Link
+                            to={{
+                              pathname: "www.paypal.com/paypalme/rcncanada",
+                            }}
+                            target="_blank"
+                            className="text-[#313185] underline"
+                          >
+                            paypal link
+                          </Link>
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        <span className="block font-bold text-2xl">*Bank account details</span>
+                        <div className="space-y-2 *:text-xl">
+                          <span className="block">
+                            ACCOUNT NAME: REMNANT CHRISTIAN NETWORK CANADA
+                          </span>
+
+                          <span className="block">ACCOUNT NUMBER: 2845717</span>
+
+                          <span className="block">BANK CODE: 010</span>
+
+                          <span className="block">BRANCH: 01042</span>
+                        </div>
+                      </div>
+                    </ModalContent>
+                  </ModalBody>
+                </Modal>
+
                 <Link to="#connect">Connect with us</Link>
+                <div className="contents">
+                  <Link
+                    to={{
+                      pathname: "/",
+                    }}
+                    target="_blank"
+                  >
+                    First timers
+                  </Link>
+                  <Link
+                    to={{
+                      pathname: "/",
+                    }}
+                    target="_blank"
+                  >
+                    Partnership
+                  </Link>
+                </div>
               </div>
             </nav>
           </BlurFade>
 
           <BlurFade
             delay={0.25 * 2.5}
-            className="relative mb-12 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end z-50 flex items-end justify-between"
+            className="relative mb-12 slg:mb-20 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end z-50 flex items-end justify-between"
             inView
           >
-            <h1 className="slg:max-w-[860px] lg:max-w-full uppercase font-medium text-[40px] md:text-[52px] slg:text-[64px] leading-[52px] md:leading-[60px] slg:leading-[80px] text-site">
+            <h1 className="slg:max-w-[860px] lg:max-w-full font-medium text-[40px] md:text-[52px] slg:text-[64px] lg:text-[80px] leading-[52px] md:leading-[60px] slg:leading-[80px] lg:leading-[88px] text-site">
               <span className="inherit hidden slg:block">
                 Striving for the rebirth <br /> of apostolic christianity
               </span>
@@ -156,7 +232,7 @@ export default function Index() {
                 Striving for the rebirth of apostolic christianity
               </span>
             </h1>
-            <div className="mb-4 w-12 h-20 bg-[#fff]/40 hidden md:flex items-center justify-center rounded-full">
+            <div className="mb-4 w-12 h-20 bg-[#fff]/40 hidden md:flex items-center justify-center rounded-full animate-bounce">
               <MoveDown size={40} className="text-[#000]" />
             </div>
           </BlurFade>
@@ -171,9 +247,9 @@ export default function Index() {
             className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
           >
-            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h2 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               Who we are
-            </h3>
+            </h2>
             <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl md:text-3xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We are an interdenominational and non-denominational international
               Ministry to the body of Christ with the mandate of restoring the
@@ -188,12 +264,12 @@ export default function Index() {
             className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
           >
-            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h2 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               <span className="inherit hidden lg:block">
                 Our <br /> goal
               </span>
               <span className="inherit lg:hidden">Our goal</span>
-            </h3>
+            </h2>
             <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl md:text-3xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We seek only to see the coming of the King and His Kingdom until
               His reality is furnished in the hearts of the sons of men. Our
@@ -213,14 +289,14 @@ export default function Index() {
                     delay={0.25 & 2.75}
                     inView
                   >
-                    <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+                    <h2 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
                       <span className="inherit hidden lg:block">
                         Upcoming <br /> events
                       </span>
                       <span className="block mt-2 inherit lg:hidden">
                         Upcoming events
                       </span>
-                    </h3>
+                    </h2>
 
                     {isBigScreen ? (
                       <>
@@ -268,12 +344,12 @@ export default function Index() {
           className="container lg:px-3 mt-20 lg:mt-60 w-full space-y-60"
         >
           <BlurFade delay={0.25 * 1.5} className="w-full" inView>
-            <h3 className="mb-6 px-3 lg:px-0 lg:mb-16 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h2 className="mb-6 px-3 lg:px-0 lg:mb-16 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               <span className="inherit hidden lg:block">
                 Our <br /> schedule
               </span>
               <span className="inherit lg:hidden">Our schedule</span>
-            </h3>
+            </h2>
             {meetingTimes.map((m, index) => (
               <div
                 key={m.name}
@@ -303,15 +379,15 @@ export default function Index() {
         >
           <BlurFade
             delay={0.25}
-            className="container px-3 md:px-10 pt-10 2xl:pt-14 pb-4 space-y-[7.5rem]"
+            className="container px-3 md:px-10 pt-10 2xl:pt-14 pb-4 space-y-8 md:space-y-[7.5rem]"
             inView
           >
             <section className="space-y-5 md:space-y-16">
-              <h3 className="font-bold text-[40px] md:text-[4rem] lg:text-7xl leading-[3.25rem] md:leading-[4.5rem] lg:leading-[5rem] text-site text-balance">
+              <h2 className="font-bold text-[40px] md:text-[4rem] lg:text-7xl leading-[3.25rem] md:leading-[4.5rem] lg:leading-[5rem] text-site text-balance">
                 Get in touch with us
-              </h3>
+              </h2>
 
-              <div className="w-full grid grid-cols-4 md:grid-cols-8 gap-5 lg:flex lg:justify-between lg:items-start">
+              <div className="w-full flex flex-col md:grid md:grid-cols-4 lg:grid-cols-8 lg:justify-between lg:items-start gap-8">
                 {contact.map((c) => (
                   <div
                     key={c.channel}
@@ -324,7 +400,7 @@ export default function Index() {
                     </span>
 
                     {c.channel !== "socials" && c.channel !== "location" ? (
-                      <div className="flex flex-col gap-4">
+                      <div className="flex flex-col gap-2">
                         {c.data.map((d) => (
                           <span
                             key={nanoid()}
@@ -370,12 +446,12 @@ export default function Index() {
 
             <BlurFade
               delay={0.25 * 1.25}
-              className="lg:pt-8 w-full grid grid-cols-4 lg:grid-cols-8 gap-5"
+              className="lg:pt-8 w-full grid grid-cols-4 lg:grid-cols-8 gap-10 lg:gap-5"
               inView
             >
               <Link
                 to="/"
-                className="block col-start-1 col-span-4 md:col-span-1 md:row-start-1 mx-auto md:mx-0 mt-5"
+                className="block col-start-1 col-span-4 md:row-start-1 lg:mx-0 md:mx-auto mt-5"
               >
                 <img
                   className="max-h-[120px] md:h-16"
@@ -384,15 +460,24 @@ export default function Index() {
                   alt="remnant christian network canada logo"
                 />
               </Link>
-              <small className="block mt-5 col-start-1 lg:col-start-2 col-span-4 row-start-3 lg:row-start-1 justify-self-center md:justify-self-start lg:self-end font-normal text-xs text-site">
+              <small className="block mt-5 col-start-1 lg:col-start-2 col-span-4 row-start-3 lg:row-start-1 justify-self-center lg:justify-self-start lg:self-end font-normal text-xs text-site">
                 Copyright 2024. Remnant Christian Network Canada
               </small>
-              <div className="col-start-1 md:col-start-2 lg:col-start-6 col-span-4 row-start-1 md:col-span-3 flex flex-row justify-between md:justify-end items-end gap-6 md:gap-10 *:uppercase *:text-sm">
+              <div className="col-start-1 lg:col-start-4 col-span-4 lg:col-span-5 md:row-start-2 lg:row-start-1 flex flex-wrap justify-between md:justify-center items-end gap-6 md:gap-10 *:uppercase *:text-sm">
                 <Link to="#about" className="font-normal text-site">
                   About us
                 </Link>
                 <Link to="#events" className="font-normal text-site">
                   Our events
+                </Link>
+                <Link to="#events" className="font-normal text-site">
+                  Giving
+                </Link>
+                <Link to="#events" className="font-normal text-site">
+                  First-timers
+                </Link>
+                <Link to="#events" className="font-normal text-site">
+                  Partners
                 </Link>
                 <Link to="#connect" className="font-regular text-site">
                   Contact us
@@ -408,16 +493,14 @@ export default function Index() {
 
 function placeFooterContent(content: ContactQueryType[number]) {
   if (content.channel === "location")
-    return "col-start-1 row-start-1 md:row-start-2 col-span-2 md:col-span-3";
+    return "col-start-1 row-start-1 col-span-2";
 
-  if (content.channel === "phone")
-    return "col-start-3 md:col-start-6 row-start-1 col-span-2 md:col-span-3 justify-self-end md:justify-self-start";
+  if (content.channel === "phone") return "col-start-3 col-span-2";
 
   if (content.channel === "socials")
-    return "col-start-1 md:col-start-6 row-start-2 col-span-1 md:col-span-3";
+    return "col-start-1 lg:col-start-5 col-span-2";
 
-  if (content.channel === "email")
-    return "col-start-1 row-start-3 md:row-start-1 col-span-8";
+  if (content.channel === "email") return "lg:col-start-7 col-span-2";
 
   return "";
 }
