@@ -234,7 +234,7 @@ export default function Index() {
 
           <BlurFade
             delay={0.25 * 2.5}
-            className="relative mb-12 slg:mb-20 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end z-50 flex items-end justify-between"
+            className="mb-12 slg:mb-20 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end flex items-end justify-between"
             inView
           >
             <h1 className="slg:max-w-[860px] lg:max-w-full font-medium text-[40px] md:text-[52px] slg:text-[64px] lg:text-[80px] leading-[52px] md:leading-[60px] slg:leading-[80px] lg:leading-[88px] text-site">
