@@ -83,6 +83,9 @@ export async function loader() {
 
 export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
+  function closeMenu() {
+    if (isOpen) setIsOpen(false);
+  }
 
   const isBigScreen = useMediaQuery("(min-width: 1024px)");
 
@@ -143,8 +146,12 @@ export default function Index() {
                   isOpen ? "flex" : "hidden"
                 } slg:flex flex-col items-center slg:items-start gap-10 slg:gap-4 uppercase text-text slg:text-site rounded-lg slg:rounded-none`}
               >
-                <Link to="#about">About us</Link>
-                <Link to="#events">Upcoming events</Link>
+                <Link to="#about" onClick={closeMenu}>
+                  About us
+                </Link>
+                <Link to="#events" onClick={closeMenu}>
+                  Upcoming events
+                </Link>
                 <Modal>
                   <ModalTrigger className="p-0 uppercase">
                     Ways to give
@@ -158,7 +165,9 @@ export default function Index() {
                         </span>
                         <span className="block text-xl">
                           Send an INTERAC e-transfer fron your bank app at{" "}
-                          <span className="underline font-bold">give@rcncanada.com</span>
+                          <span className="underline font-bold">
+                            give@rcncanada.com
+                          </span>
                         </span>
                       </div>
                       <div className="space-y-2">
@@ -179,7 +188,9 @@ export default function Index() {
                         </span>
                       </div>
                       <div className="space-y-2">
-                        <span className="block font-bold text-2xl">*Bank account details</span>
+                        <span className="block font-bold text-2xl">
+                          *Bank account details
+                        </span>
                         <div className="space-y-2 *:text-xl">
                           <span className="block">
                             ACCOUNT NAME: REMNANT CHRISTIAN NETWORK CANADA
@@ -196,8 +207,10 @@ export default function Index() {
                   </ModalBody>
                 </Modal>
 
-                <Link to="#connect">Connect with us</Link>
-                <div className="contents">
+                <Link to="#connect" onClick={closeMenu}>
+                  Connect with us
+                </Link>
+                <div className="contents" onClick={closeMenu}>
                   <Link
                     to={{
                       pathname: "/",
