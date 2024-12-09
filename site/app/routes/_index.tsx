@@ -3,12 +3,10 @@ import type { EventsQueryType, ContactQueryType } from "../sanity";
 
 import { Suspense, useState } from "react";
 import { Await, Link } from "@remix-run/react";
-import { defer } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { typeddefer, useTypedLoaderData } from "remix-typedjson";
 
 import { nanoid } from "nanoid";
-import { AlignRight, X } from "lucide-react";
+import { AlignRight, X, MoveDown } from "lucide-react";
 import { IKVideo, IKContext } from "imagekitio-react";
 
 import {
@@ -20,14 +18,14 @@ import {
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 
-import Carousel from "~/components/Carousel";
 import BlurFade from "~/components/animation/BlurFade";
 import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogContainer,
-} from "~/components/Dialog";
+  Carousel,
+  CarouselContent,
+  CarouselNavigation,
+  CarouselItem,
+} from "~/components/motion/Carousel";
+import UILayoutCarousel from "~/components/uiLayout/Carousel";
 
 export const meta: MetaFunction = () => {
   return [
@@ -40,6 +38,29 @@ export const meta: MetaFunction = () => {
 };
 
 const imagekitURL = "https://ik.imagekit.io/2rtor9l9w";
+
+const meetingTimes = [
+  {
+    name: "Sunday Service",
+    frequence: "Every Sunday",
+    time: "1PM",
+  },
+  {
+    name: "Tuesday Service",
+    frequence: "Every Tuesday",
+    time: "7PM",
+  },
+  {
+    name: "Tabernacle of David",
+    frequence: "4th Friday of every month",
+    time: "11:59PM-5AM",
+  },
+  {
+    name: "10 hours prayer stretch",
+    frequence: "3rd Saturday of every month",
+    time: "7AM-5PM",
+  },
+];
 
 export async function loader() {
   const events = client
@@ -60,22 +81,20 @@ export default function Index() {
 
   const { contact, events } = useTypedLoaderData<typeof loader>();
 
-  const address = contact.find((c) => c.channel === "location")?.data;
-
   return (
     <>
       <IKContext urlEndpoint={imagekitURL}>
-        <header className="w-full min-h-screen min-h-[100dvh] lg:min-h-[95vh] lg:min-h-[95dvh] lg:max-h-[99vh] p-3 grid grid-cols-1 grid-rows-[90%_10%] md:grid-rows-[auto] gap-y-3 md:gap-0">
+        <header className="w-full min-h-screen min-h-[100dvh] lg:p-3 grid grid-cols-1">
           <BlurFade
             delay={0.25}
             inView
-            className="relative lg:max-h-[95vh] lg:max-h-[95dvh] col-start-1 col-span-1 row-start-1 row-span-1 before:absolute before:inset-0 before:rounded-lg before:bg-gradient-to-t before:from-brand before:via-brand/80 before:via-70% before:to-brand/50 "
+            className="relative lg:max-h-[95vh] lg:max-h-[95dvh] col-start-1 col-span-1 row-start-1 row-span-1 before:absolute before:inset-0 lg:before:rounded-lg before:bg-gradient-to-t before:from-brand before:via-brand/80 before:via-70% before:to-brand/50 "
           >
             <IKVideo
               path="RCN/pastor-ola-at-iec-2024.mp4"
               transformation={[{ q: "70" }]}
               controls={false}
-              className="block w-full h-full object-cover rounded-lg"
+              className="block w-full h-full object-cover lg:rounded-lg"
               autoPlay
               loop
               muted
@@ -91,9 +110,9 @@ export default function Index() {
           <BlurFade
             delay={0.25 * 2}
             inView
-            className="relative mt-6 2xl:mt-10 px-3 md:px-10 container h-fit col-start-1 col-span-1 row-start-1 z-50"
+            className="relative mt-10 container h-fit col-start-1 col-span-1 row-start-1 z-50"
           >
-            <nav className="relative flex items-start justify-between">
+            <nav className="px-3 relative flex items-start justify-between">
               <img
                 className="h-16"
                 aria-label="logo"
@@ -124,67 +143,38 @@ export default function Index() {
             </nav>
           </BlurFade>
 
-          <footer className="md:px-10 md:pb-4 lg:pb-0 container col-start-1 apply-row-span z-10 flex md:items-end md:justify-between text-site">
-            <div className="grid grid-rows-[70%_20%_10%] md:grid-rows-2 lg:grid-rows-[auto] lg:grid-cols-8 xl:grid-cols-12 md:gap-5">
-              <BlurFade
-                delay={0.25 * 2.5}
-                className="md:hidden relative top-6 px-3 h-[288px] grid grid-cols-4 self-end gap-x-5 text-8xl -tracking-[1.5px]"
-                inView
-              >
-                <span className="block col-start-1 col-span-4 self-end">
-                  REVEA
-                </span>
-                <span className="block col-start-1 col-span-4 row-start-2 justify-self-end">
-                  LING
-                </span>
-                <span className="block">JESUS</span>
-              </BlurFade>
-              <BlurFade
-                delay={0.25 * 2.5}
-                className="row-span-2 relative hidden md:flex lg:hidden justify-between items-end"
-                inView
-              >
-                <h1 className="w-fit uppercase font-medium text-[120px] leading-[120px] -tracking-[1.5px] text-site">
-                  REVEA-
-                  <br />
-                  LING
-                  <br />
-                  JESUS
-                </h1>
-                <span className="relative bottom-6 text-[24px] text-balance leading-[32px]">
-                  Join us every Tuesday at 7pm at {address?.street}, <br />
-                  {address?.city} {address?.province} {address?.postcode}
-                </span>
-              </BlurFade>
-              <BlurFade
-                delay={0.25 * 2.5}
-                className="hidden lg:block mb-2 uppercase font-medium text-site text-[96px] xl:text-[120px] 2xl:text-[144px] leading-[104px] xl:leading-[120px] 2xl:leading-[144px] -tracking-[1.5px]"
-                inView
-              >
-                Revealing <br /> Jesus
-              </BlurFade>
-              <BlurFade
-                delay={0.25 * 2.5}
-                className="md:hidden lg:block relative -top-8 lg:top-0 lg:max-w-[340px] row-start-2 lg:row-start-1 lg:row-end-2 lg:col-start-3 xl:col-start-5 lg:col-span-4 lg:ml-16 xl:ml-0 2xl:-ml-10 lg:mb-7 2xl:mb-10 px-3 md:px-0 self-end text-[24px] text-balance leading-[32px]"
-                inView
-              >
-                Join us every Tuesday at 7pm at {address?.street}, <br />
-                {address?.city} {address?.province} {address?.postcode}
-              </BlurFade>
+          <BlurFade
+            delay={0.25 * 2.5}
+            className="relative mb-12 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end z-50 flex items-end justify-between"
+            inView
+          >
+            <h1 className="uppercase font-medium text-[40px] leading-[52px] lg:text-[64px] lg:leading-[80px] text-site">
+              <span className="inherit hidden lg:block">
+                Striving for the rebirth <br /> of apostolic christianity
+              </span>
+              <span className="inherit lg:hidden text-balance">
+                Striving for the rebirth of apostolic christianity
+              </span>
+            </h1>
+            <div className="mb-4 w-24 h-24 bg-[#fff]/40 hidden lg:flex items-center justify-center rounded-full">
+              <MoveDown size={40} className="text-[#000]" />
             </div>
-          </footer>
+          </BlurFade>
         </header>
 
         <section
           id="about"
-          className="container px-3 md:px-10 mt-16 md:mt-[40vh] lg:grid lg:grid-cols-8 xl:grid-cols-12 lg:gap-5"
+          className="container px-3 mt-40 lg:mt-60 w-full space-y-20 lg:space-y-60"
         >
           <BlurFade
-            delay={0.25}
+            delay={0.25 * 1.5}
+            className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
-            className="lg:col-start-3 xl:col-start-4 2xl:col-start-4 lg:col-span-6 xl:col-span-9"
           >
-            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px] -tracking-[1.5px]">
+            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+              Who we are
+            </h3>
+            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We are an interdenominational and non-denominational international
               Ministry to the body of Christ with the mandate of restoring the
               apostolic order and Christianity as was seen in the days of the
@@ -193,13 +183,18 @@ export default function Index() {
               age.
             </p>
           </BlurFade>
-
           <BlurFade
-            delay={0.25 * 1.25}
-            className="mt-[20vh] lg:col-start-3 xl:col-start-4 2xl:col-start-4 lg:col-span-6 xl:col-span-9"
+            delay={0.25 * 1.5}
+            className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
           >
-            <p className="2xl:justify-self-end font-normal text-text text-balance text-[40px] xl:text-[48px] leading-[52px] xl:leading-[72px] -tracking-[1.5px]">
+            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+              <span className="inherit hidden lg:block">
+                Our <br /> goal
+              </span>
+              <span className="inherit lg:hidden">Our goal</span>
+            </h3>
+            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We seek only to see the coming of the King and His Kingdom until
               His reality is furnished in the hearts of the sons of men. Our
               major instruments of realizing this vision are Prayers, the Study
@@ -208,73 +203,49 @@ export default function Index() {
           </BlurFade>
         </section>
 
-        <section
-          id="events"
-          className="mt-[120px] md:mt-[40vh] lg:container lg:px-10 space-y-6 md:space-y-24 2xl:space-y-[120px]"
-        >
-          <BlurFade
-            delay={0.25 * 1.5}
-            className="container lg:max-w-full px-3 md:px-10 lg:px-0 uppercase font-bold text-[56px] md:text-8xl lg:text-[120px] 2xl:text-[150px] leading-[64px] md:leading-[104px] lg:leading-[160px] text-[transparent] text-balance -tracking-[1.5px] [-webkit-text-stroke:1px_#0e0907] md:[-webkit-text-stroke:2px_#0E0907]"
-            inView
-          >
-            <h3>Upcoming events</h3>
-          </BlurFade>
-
+        <section id="events" className="mt-20 lg:mt-60 container px-3">
           <Suspense fallback={<p>Loading</p>}>
             <Await resolve={events}>
               {(events) => (
-                <>
-                  {isBigScreen ? (
-                    <BlurFade
-                      delay={0.25 * 2.5}
-                      className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(480px,1fr))] gap-11 items-center"
-                      inView
-                    >
-                      {[events.schedule, ...events.events].map((event, i) => (
-                        <div
-                          key={nanoid()}
-                          className={`${
-                            event.isMainEvent
-                              ? "lg:col-start-2 lg:row-start-1"
-                              : ""
-                          } flex justify-center`}
-                        >
-                          {/* TODO: configure fallback images.
-                           There should be a low-quality image blurred for this */}
-                          <Dialog
-                            transition={{
-                              type: "spring",
-                              stiffness: 200,
-                              damping: 24,
-                            }}
-                          >
-                            <DialogTrigger>
+                <Carousel>
+                  <BlurFade
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-16"
+                    delay={0.25 & 2.75}
+                    inView
+                  >
+                    <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+                      <span className="inherit hidden lg:block">
+                        Upcoming <br /> events
+                      </span>
+                      <span className="block mt-2 inherit lg:hidden">
+                        Upcoming events
+                      </span>
+                    </h3>
+
+                    {isBigScreen ? (
+                      <>
+                        <CarouselNavigation
+                          className="mb-5 col-start-11 col-span-3 self-end justify-self-end gap-4"
+                          classNameButton="bg-transparent border border-[#000]"
+                          alwaysShow
+                        />
+                        <CarouselContent className="col-start-1 col-span-12 space-x-3">
+                          {[events.schedule, ...events.events].map((event) => (
+                            <CarouselItem
+                              key={nanoid()}
+                              className="min-w-[400px]"
+                            >
                               <img
-                                src={`${event.poster.url}?w=400`}
+                                src={event.poster.url}
                                 loading="lazy"
-                                className={`${
-                                  !event.isMainEvent
-                                    ? "lg:max-w-[344px] xl:max-w-[360px] 2xl:max-w-[480px]"
-                                    : "lg:max-w-[400px] xl:max-w-[420px] 2xl:max-w-[600px]"
-                                } drop-shadow-md`}
+                                className={`md:w-[400px]`}
                               />
-                            </DialogTrigger>
-                            <DialogContainer>
-                              <DialogContent>
-                                <img
-                                  src={event.poster.url}
-                                  loading="lazy"
-                                  className={`md:w-[400px]`}
-                                />
-                              </DialogContent>
-                            </DialogContainer>
-                          </Dialog>
-                        </div>
-                      ))}
-                    </BlurFade>
-                  ) : (
-                    <BlurFade delay={0.25 & 2.75} inView>
-                      <Carousel
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </>
+                    ) : (
+                      <UILayoutCarousel
                         data={[
                           {
                             ...events.schedule.poster,
@@ -284,12 +255,46 @@ export default function Index() {
                           })),
                         ]}
                       />
-                    </BlurFade>
-                  )}
-                </>
+                    )}
+                  </BlurFade>
+                </Carousel>
               )}
             </Await>
           </Suspense>
+        </section>
+
+        <section
+          id="schedule"
+          className="container lg:px-3 mt-20 lg:mt-60 w-full space-y-60"
+        >
+          <BlurFade delay={0.25 * 1.5} className="w-full" inView>
+            <h3 className="mb-6 px-3 lg:px-0 lg:mb-16 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+              <span className="inherit hidden lg:block">
+                Our <br /> schedule
+              </span>
+              <span className="inherit lg:hidden">Our schedule</span>
+            </h3>
+            {meetingTimes.map((m, index) => (
+              <div
+                key={m.name}
+                className={`w-full h-fit p-3 lg:h-20 grid grid-cols-3 lg:grid-cols-12 gap-x-5 items-center text-sm lg:text-2xl ${
+                  index === meetingTimes.length - 1
+                    ? "border border-[#000]"
+                    : "border-r border-t border-l border-[#000]"
+                }`}
+              >
+                <span className="block lg:ml-3 col-start-1 lg:col-span-3">
+                  {m.frequence}
+                </span>
+                <span className="block col-start-2 lg:col-start-6 col-span-2 justify-self-end self-start lg:justify-self-start text-balance">
+                  {m.name}
+                </span>
+                <span className="block col-start-2 col-span-2 lg:col-start-11 lg:col-span-2 justify-self-end lg:justify-self-start text-balance">
+                  @{m.time} EST
+                </span>
+              </div>
+            ))}
+          </BlurFade>
         </section>
 
         <footer
