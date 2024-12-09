@@ -148,15 +148,15 @@ export default function Index() {
             className="relative mb-12 px-3 container h-fit col-start-1 col-span-1 row-start-1 self-end z-50 flex items-end justify-between"
             inView
           >
-            <h1 className="uppercase font-medium text-[40px] leading-[52px] lg:text-[64px] lg:leading-[80px] text-site">
-              <span className="inherit hidden lg:block">
+            <h1 className="slg:max-w-[860px] lg:max-w-full uppercase font-medium text-[40px] md:text-[52px] slg:text-[64px] leading-[52px] md:leading-[60px] slg:leading-[80px] text-site">
+              <span className="inherit hidden slg:block">
                 Striving for the rebirth <br /> of apostolic christianity
               </span>
-              <span className="inherit lg:hidden text-balance">
+              <span className="inherit slg:hidden text-balance">
                 Striving for the rebirth of apostolic christianity
               </span>
             </h1>
-            <div className="mb-4 w-24 h-24 bg-[#fff]/40 hidden lg:flex items-center justify-center rounded-full">
+            <div className="mb-4 w-12 h-20 bg-[#fff]/40 hidden md:flex items-center justify-center rounded-full">
               <MoveDown size={40} className="text-[#000]" />
             </div>
           </BlurFade>
@@ -164,17 +164,17 @@ export default function Index() {
 
         <section
           id="about"
-          className="container px-3 mt-40 lg:mt-60 w-full space-y-20 lg:space-y-60"
+          className="container px-3 mt-40 lg:mt-60 w-full space-y-20 md:space-y-28 lg:space-y-60"
         >
           <BlurFade
             delay={0.25 * 1.5}
             className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
           >
-            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               Who we are
             </h3>
-            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
+            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl md:text-3xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We are an interdenominational and non-denominational international
               Ministry to the body of Christ with the mandate of restoring the
               apostolic order and Christianity as was seen in the days of the
@@ -188,13 +188,13 @@ export default function Index() {
             className="w-full grid grid-cols-1 lg:grid-cols-12 gap-x-5 gap-y-6 lg:gap-y-0"
             inView
           >
-            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               <span className="inherit hidden lg:block">
                 Our <br /> goal
               </span>
               <span className="inherit lg:hidden">Our goal</span>
             </h3>
-            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
+            <p className="lg:col-start-7 lg:col-end-13 font-regular text-2xl md:text-3xl lg:text-[40px] lg:leading-[52px] lg:-tracking-[1.5px] text-text text-balance">
               We seek only to see the coming of the King and His Kingdom until
               His reality is furnished in the hearts of the sons of men. Our
               major instruments of realizing this vision are Prayers, the Study
@@ -203,7 +203,7 @@ export default function Index() {
           </BlurFade>
         </section>
 
-        <section id="events" className="mt-20 lg:mt-60 container px-3">
+        <section id="events" className="mt-20 md:mt-28 lg:mt-60 container px-3">
           <Suspense fallback={<p>Loading</p>}>
             <Await resolve={events}>
               {(events) => (
@@ -213,7 +213,7 @@ export default function Index() {
                     delay={0.25 & 2.75}
                     inView
                   >
-                    <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+                    <h3 className="col-start-1 col-span-1 lg:col-span-4 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
                       <span className="inherit hidden lg:block">
                         Upcoming <br /> events
                       </span>
@@ -268,7 +268,7 @@ export default function Index() {
           className="container lg:px-3 mt-20 lg:mt-60 w-full space-y-60"
         >
           <BlurFade delay={0.25 * 1.5} className="w-full" inView>
-            <h3 className="mb-6 px-3 lg:px-0 lg:mb-16 uppercase font-bold text-3xl lg:text-[96px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
+            <h3 className="mb-6 px-3 lg:px-0 lg:mb-16 uppercase font-bold text-3xl md:text-[64px] lg:text-[96px] md:leading-[80px] lg:leading-[120px] text-[transparent] text-balance lg:-tracking-[1.5px] [-webkit-text-stroke:1px_#0E0907] lg:[-webkit-text-stroke:2px_#0E0907]">
               <span className="inherit hidden lg:block">
                 Our <br /> schedule
               </span>
@@ -277,19 +277,19 @@ export default function Index() {
             {meetingTimes.map((m, index) => (
               <div
                 key={m.name}
-                className={`w-full h-fit p-3 lg:h-20 grid grid-cols-3 lg:grid-cols-12 gap-x-5 items-center text-sm lg:text-2xl ${
+                className={`w-full h-fit p-3 lg:h-20 grid grid-cols-3 slg:grid-cols-12 gap-x-5 items-center text-sm md:text-2xl ${
                   index === meetingTimes.length - 1
                     ? "border border-[#000]"
                     : "border-r border-t border-l border-[#000]"
                 }`}
               >
-                <span className="block lg:ml-3 col-start-1 lg:col-span-3">
+                <span className="block lg:ml-3 col-start-1 row-start-2 slg:row-start-1 col-span-2 slg:col-span-3">
                   {m.frequence}
                 </span>
-                <span className="block col-start-2 lg:col-start-6 col-span-2 justify-self-end self-start lg:justify-self-start text-balance">
+                <span className="block col-start-1 slg:col-start-6 col-span-3 self-start font-extrabold slg:font-normal text-balance">
                   {m.name}
                 </span>
-                <span className="block col-start-2 col-span-2 lg:col-start-11 lg:col-span-2 justify-self-end lg:justify-self-start text-balance">
+                <span className="block slg:col-start-11 slg:col-span-2 justify-self-end self-start text-right slg:text-left slg:justify-self-start text-balance">
                   @{m.time} EST
                 </span>
               </div>
