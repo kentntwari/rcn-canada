@@ -1,3 +1,5 @@
+import type { ContactQueryType } from "~/sanity";
+
 import {
   Links,
   Meta,
@@ -6,10 +8,17 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { typeddefer, useTypedLoaderData } from "remix-typedjson";
 
 import { useEffect } from "react";
 
 import "./tailwind.css";
+
+import { client, queries, CONTACT_QUERY_SCHEMA } from "~/sanity";
+
+import { Navbar } from "./components/Navbar";
+import Footer from "./components/Footer";
+import BlurFade from "./components/animation/BlurFade";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -58,6 +67,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+export async function loader() {
+  const contact = await client
+    .fetch<ContactQueryType>(queries.CONTACT_QUERY)
+    .then((res) => CONTACT_QUERY_SCHEMA.parse(res));
+
+  return typeddefer({ contact });
+}
+
 export default function App() {
-  return <Outlet />;
+  const { contact } = useTypedLoaderData<typeof loader>();
+  return (
+    <div className="grid grid-cols-1">
+      <Navbar className="mt-10 container h-fit col-start-1 col-span-1 row-start-1 z-50" />
+
+      <div className="col-start-1 col-span-1 row-start-1">
+        <Outlet />
+        <Footer data={contact} />
+      </div>
+    </div>
+  );
 }

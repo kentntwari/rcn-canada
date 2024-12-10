@@ -1,20 +1,15 @@
 import type { MetaFunction } from "@remix-run/node";
-import type { EventsQueryType, ContactQueryType } from "../sanity";
+import type { EventsQueryType } from "../sanity";
 
-import { Suspense, useState } from "react";
-import { Await, Link } from "@remix-run/react";
+import { Suspense } from "react";
+import { Await } from "@remix-run/react";
 import { typeddefer, useTypedLoaderData } from "remix-typedjson";
 
 import { nanoid } from "nanoid";
-import { AlignRight, X, MoveDown } from "lucide-react";
+import { MoveDown } from "lucide-react";
 import { IKVideo, IKContext } from "imagekitio-react";
 
-import {
-  client,
-  queries,
-  EVENTS_QUERY_SCHEMA,
-  CONTACT_QUERY_SCHEMA,
-} from "../sanity";
+import { client, queries, EVENTS_QUERY_SCHEMA } from "../sanity";
 
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 
@@ -25,13 +20,7 @@ import {
   CarouselNavigation,
   CarouselItem,
 } from "~/components/motion/Carousel";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "~/components/acertinity/Modal";
+
 import UILayoutCarousel from "~/components/uiLayout/Carousel";
 
 export const meta: MetaFunction = () => {
@@ -74,22 +63,13 @@ export async function loader() {
     .fetch<EventsQueryType>(queries.EVENTS_QUERY)
     .then((res) => EVENTS_QUERY_SCHEMA.parse(res));
 
-  const contact = await client
-    .fetch<ContactQueryType>(queries.CONTACT_QUERY)
-    .then((res) => CONTACT_QUERY_SCHEMA.parse(res));
-
-  return typeddefer({ contact, events });
+  return typeddefer({ events });
 }
 
 export default function Index() {
-  const [isOpen, setIsOpen] = useState(false);
-  function closeMenu() {
-    if (isOpen) setIsOpen(false);
-  }
-
   const isBigScreen = useMediaQuery("(min-width: 1024px)");
 
-  const { contact, events } = useTypedLoaderData<typeof loader>();
+  const { events } = useTypedLoaderData<typeof loader>();
 
   return (
     <>
@@ -116,120 +96,6 @@ export default function Index() {
               />
               Your browser does not support the video tag.
             </IKVideo>
-          </BlurFade>
-          <BlurFade
-            delay={0.25 * 2}
-            inView
-            className="relative mt-10 container h-fit col-start-1 col-span-1 row-start-1 z-50"
-          >
-            <nav className="px-3 relative flex items-start justify-between">
-              <img
-                className="h-16"
-                aria-label="logo"
-                src="/img/whitercnlogo.png"
-                alt="remnant christian network canada logo"
-              />
-              <button
-                aria-label="toggle menu"
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="slg:hidden text-site"
-              >
-                {isOpen ? (
-                  <X size={32} className="text-site" />
-                ) : (
-                  <AlignRight size={32} className="text-site" />
-                )}
-              </button>
-
-              <div
-                className={`absolute left-0 top-20 slg:static py-4 slg:py-0 w-full slg:w-fit bg-site slg:bg-[transparent] ${
-                  isOpen ? "flex" : "hidden"
-                } slg:flex flex-col items-center slg:items-start gap-10 slg:gap-4 uppercase text-text slg:text-site rounded-lg slg:rounded-none`}
-              >
-                <Link to="#about" onClick={closeMenu}>
-                  About us
-                </Link>
-                <Link to="#events" onClick={closeMenu}>
-                  Upcoming events
-                </Link>
-                <Modal>
-                  <ModalTrigger className="p-0 uppercase">
-                    Ways to give
-                  </ModalTrigger>
-                  <ModalBody>
-                    <ModalContent className="bg-site space-y-10 text-text overflow-y-auto">
-                      <h2 className="uppercase font-bold text-4xl">GIVING</h2>
-                      <div className="space-y-2">
-                        <span className="block font-bold text-2xl">
-                          *For Canada residents only
-                        </span>
-                        <span className="block text-xl">
-                          Send an INTERAC e-transfer fron your bank app at{" "}
-                          <span className="underline font-bold">
-                            give@rcncanada.com
-                          </span>
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="block font-bold text-2xl">
-                          *For US & Other international residents
-                        </span>
-                        <span className="block text-xl">
-                          Send using this{" "}
-                          <Link
-                            to={{
-                              pathname: "www.paypal.com/paypalme/rcncanada",
-                            }}
-                            target="_blank"
-                            className="text-[#313185] underline"
-                          >
-                            paypal link
-                          </Link>
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        <span className="block font-bold text-2xl">
-                          *Bank account details
-                        </span>
-                        <div className="space-y-2 *:text-xl">
-                          <span className="block">
-                            ACCOUNT NAME: REMNANT CHRISTIAN NETWORK CANADA
-                          </span>
-
-                          <span className="block">ACCOUNT NUMBER: 2845717</span>
-
-                          <span className="block">BANK CODE: 010</span>
-
-                          <span className="block">BRANCH: 01042</span>
-                        </div>
-                      </div>
-                    </ModalContent>
-                  </ModalBody>
-                </Modal>
-
-                <Link to="#connect" onClick={closeMenu}>
-                  Connect with us
-                </Link>
-                <div className="contents" onClick={closeMenu}>
-                  <Link
-                    to={{
-                      pathname: "/",
-                    }}
-                    target="_blank"
-                  >
-                    First timers
-                  </Link>
-                  <Link
-                    to={{
-                      pathname: "/",
-                    }}
-                    target="_blank"
-                  >
-                    Partnership
-                  </Link>
-                </div>
-              </div>
-            </nav>
           </BlurFade>
 
           <BlurFade
@@ -385,135 +251,7 @@ export default function Index() {
             ))}
           </BlurFade>
         </section>
-
-        <footer
-          id="connect"
-          className="mt-[12rem] md:mt-60 lg:mt-[19rem] bg-brand"
-        >
-          <BlurFade
-            delay={0.25}
-            className="container px-3 md:px-10 pt-10 2xl:pt-14 pb-4 space-y-8 md:space-y-[7.5rem]"
-            inView
-          >
-            <section className="space-y-5 md:space-y-16">
-              <h2 className="font-bold text-[40px] md:text-[4rem] lg:text-7xl leading-[3.25rem] md:leading-[4.5rem] lg:leading-[5rem] text-site text-balance">
-                Get in touch with us
-              </h2>
-
-              <div className="w-full flex flex-col md:grid md:grid-cols-4 lg:grid-cols-8 lg:justify-between lg:items-start gap-8">
-                {contact.map((c) => (
-                  <div
-                    key={c.channel}
-                    className={`${placeFooterContent(
-                      c
-                    )} flex flex-col gap-3 text-site`}
-                  >
-                    <span className="font-normal md:text-2xl leading-[30px]">
-                      ({c.title})
-                    </span>
-
-                    {c.channel !== "socials" && c.channel !== "location" ? (
-                      <div className="flex flex-col gap-2">
-                        {c.data.map((d) => (
-                          <span
-                            key={nanoid()}
-                            className="font-normal md:text-2xl text-balance leading-[30px]"
-                          >
-                            {d}
-                          </span>
-                        ))}
-                      </div>
-                    ) : (
-                      <>
-                        {c.channel !== "socials" ? (
-                          <div className="flex flex-col">
-                            <span className="font-normal md:text-2xl text-balance leading-[30px]">
-                              {c.data["street"]},
-                            </span>
-                            <span className="font-normal md:text-2xl text-balance leading-[30px]">
-                              {c.data["city"]} {c.data["province"]},
-                            </span>
-                            <span className="font-normal md:text-2xl text-balance leading-[30px]">
-                              {c.data["postcode"]}
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="flex md:flex-col gap-4">
-                            {c.data.map((d) => (
-                              <Link
-                                key={nanoid()}
-                                to={d.url}
-                                className="font-normal capitalize md:text-2xl text-balance leading-[30px]"
-                              >
-                                {d.site}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <BlurFade
-              delay={0.25 * 1.25}
-              className="lg:pt-8 w-full grid grid-cols-4 lg:grid-cols-8 gap-10 lg:gap-5"
-              inView
-            >
-              <Link
-                to="/"
-                className="block col-start-1 col-span-4 md:row-start-1 lg:mx-0 md:mx-auto mt-5"
-              >
-                <img
-                  className="max-h-[120px] md:h-16"
-                  aria-label="logo"
-                  src="/img/whitercnlogo.png"
-                  alt="remnant christian network canada logo"
-                />
-              </Link>
-              <small className="block mt-5 col-start-1 lg:col-start-2 col-span-4 row-start-3 lg:row-start-1 justify-self-center lg:justify-self-start lg:self-end font-normal text-xs text-site">
-                Copyright 2024. Remnant Christian Network Canada
-              </small>
-              <div className="col-start-1 lg:col-start-4 col-span-4 lg:col-span-5 md:row-start-2 lg:row-start-1 flex flex-wrap justify-between md:justify-center items-end gap-6 md:gap-10 *:uppercase *:text-sm">
-                <Link to="#about" className="font-normal text-site">
-                  About us
-                </Link>
-                <Link to="#events" className="font-normal text-site">
-                  Our events
-                </Link>
-                <Link to="#events" className="font-normal text-site">
-                  Giving
-                </Link>
-                <Link to="#events" className="font-normal text-site">
-                  First-timers
-                </Link>
-                <Link to="#events" className="font-normal text-site">
-                  Partners
-                </Link>
-                <Link to="#connect" className="font-regular text-site">
-                  Contact us
-                </Link>
-              </div>
-            </BlurFade>
-          </BlurFade>
-        </footer>
       </IKContext>
     </>
   );
-}
-
-function placeFooterContent(content: ContactQueryType[number]) {
-  if (content.channel === "location")
-    return "col-start-1 row-start-1 col-span-2";
-
-  if (content.channel === "phone") return "col-start-3 col-span-2";
-
-  if (content.channel === "socials")
-    return "col-start-1 lg:col-start-5 col-span-2";
-
-  if (content.channel === "email") return "lg:col-start-7 col-span-2";
-
-  return "";
 }
