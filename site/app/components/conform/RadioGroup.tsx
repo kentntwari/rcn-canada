@@ -41,7 +41,7 @@ export function RadioGroupConform({
                 value={item.value}
                 id={`${meta.id}-${item.value}`}
               />
-              <label htmlFor={`${meta.id}-${item.value}`}>{item.label}</label>
+              <label className="text-sm slg:text-base" htmlFor={`${meta.id}-${item.value}`}>{item.label}</label>
             </div>
           );
         })}

@@ -202,7 +202,7 @@ function DefaultNavbarContent() {
                 <DialogTitle>
                   Is this your first time with RCN Canada?
                 </DialogTitle>
-                <DialogDescription className="font-bold text-2xl">
+                <DialogDescription className="font-bold text-lg slg:text-2xl">
                   If so, please fill out this form so we can get to know you.
                 </DialogDescription>
               </DialogHeader>

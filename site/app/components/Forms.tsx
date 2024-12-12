@@ -46,13 +46,13 @@ export function FirstTimerForm() {
         {...getFormProps(form)}
         method="POST"
         action="/api/forms"
-        className="grid grid-cols-2 gap-6"
+        className="grid grid-cols-2 gap-4 slg:gap-6"
       >
         <input type="hidden" name="intent" value="register-first-timer" />
         <div className="col-span-2 space-y-2">
           <label
             htmlFor={fields.fullName.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Your name
           </label>
@@ -68,7 +68,7 @@ export function FirstTimerForm() {
         <div className="col-span-2 space-y-2">
           <label
             htmlFor={fields.email.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Your Email
           </label>
@@ -85,7 +85,7 @@ export function FirstTimerForm() {
         <div className="col-span-2 space-y-2">
           <label
             htmlFor={fields.phoneNumber.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Your phone number
           </label>
@@ -105,14 +105,14 @@ export function FirstTimerForm() {
           {...getFieldsetProps(fields.address)}
           className="col-span-2 space-y-3"
         >
-          <span className="block text-base font-medium">
+          <span className="block text-sm slg:text-base font-medium">
             Where do you live?
           </span>
           <div className="w-full grid grid-cols-2 gap-x-4 gap-y-5">
             <div className="col-span-2 space-y-2">
               <label
                 htmlFor={a.street.id}
-                className="block text-base font-medium"
+                className="block text-sm slg:text-base font-medium"
               >
                 Street
               </label>
@@ -131,7 +131,7 @@ export function FirstTimerForm() {
             <div className="col-span-1 space-y-2">
               <label
                 htmlFor={a.city.id}
-                className="block text-base font-medium"
+                className="block text-sm slg:text-base font-medium"
               >
                 City
               </label>
@@ -146,7 +146,7 @@ export function FirstTimerForm() {
             <div className="col-start-2 col-span-1 space-y-2">
               <label
                 htmlFor={a.state.id}
-                className="block text-base font-medium"
+                className="block text-sm slg:text-base font-medium"
               >
                 State/Province
               </label>
@@ -165,7 +165,7 @@ export function FirstTimerForm() {
             <div className="col-span-1 space-y-2">
               <label
                 htmlFor={a.postalCode.id}
-                className="block text-base font-medium"
+                className="block text-sm slg:text-base font-medium"
               >
                 Zip/Postal code
               </label>
@@ -184,7 +184,7 @@ export function FirstTimerForm() {
             <div className="col-start-2 col-span-1 space-y-2">
               <label
                 htmlFor={a.country.id}
-                className="block text-base font-medium"
+                className="block text-sm slg:text-base font-medium"
               >
                 Country
               </label>
@@ -202,10 +202,10 @@ export function FirstTimerForm() {
             </div>
           </div>
         </fieldset>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.gender.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Gender
           </label>
@@ -220,10 +220,10 @@ export function FirstTimerForm() {
             {fields.gender.errors}
           </small>
         </div>
-        <div className="col-start-2 col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.maritalStatus.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Your marital status
           </label>
@@ -239,10 +239,10 @@ export function FirstTimerForm() {
             {fields.maritalStatus.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.isBornAgain.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Are you born again?
           </label>
@@ -257,10 +257,10 @@ export function FirstTimerForm() {
             {fields.isBornAgain.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.isBaptized.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Are you baptized by immersion?
           </label>
@@ -275,10 +275,10 @@ export function FirstTimerForm() {
             {fields.isBaptized.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.isTongueSpeaker.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Do you speak in tongues?
           </label>
@@ -293,10 +293,10 @@ export function FirstTimerForm() {
             {fields.isTongueSpeaker.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.wantsHolySpirit.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Would You Like To Receive The Holy Spirit?
           </label>
@@ -311,10 +311,10 @@ export function FirstTimerForm() {
             {fields.wantsHolySpirit.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-2">
+        <div className="col-span-2 md:col-span-1 space-y-2">
           <label
             htmlFor={fields.departmentOfInterest.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Want to join our workforce?
           </label>
@@ -330,10 +330,10 @@ export function FirstTimerForm() {
             {fields.departmentOfInterest.errors}
           </small>
         </div>
-        <div className="col-span-1 space-y-1">
+        <div className="col-span-2 md:col-span-1 space-y-1">
           <label
             htmlFor={fields.willBeMessaged.id}
-            className="block text-base font-medium text-balance"
+            className="block text-sm slg:text-base font-medium text-pretty slg:text-balance"
           >
             Can we add you to our mailing list and whatsapp group?{" "}
           </label>
@@ -349,7 +349,10 @@ export function FirstTimerForm() {
           </small>
         </div>
         <div className="col-span-2 space-y-2">
-          <label htmlFor={d.service.id} className="block text-base font-medium">
+          <label
+            htmlFor={d.service.id}
+            className="block text-sm slg:text-base font-medium"
+          >
             Which session of the service today were you most blessed by?
           </label>
           <TextareaConform meta={d.service} />
@@ -360,7 +363,7 @@ export function FirstTimerForm() {
         <div className="col-span-2 space-y-2">
           <label
             htmlFor={d.prayerRequest.id}
-            className="block text-base font-medium"
+            className="block text-sm slg:text-base font-medium"
           >
             Let us know your prayer request
           </label>
@@ -370,11 +373,11 @@ export function FirstTimerForm() {
           </small>
         </div>
 
-        <div className="col-start-2 justify-self-end space-x-4 *:bg-text *:text-site">
+        <div className="col-start-2 justify-self-end flex items-center gap-x-2 *:w-24 *:h-8 *:flex *:items-center *:justify-center *:rounded-lg">
           <button type="button" className="mt-2">
             Cancel
           </button>
-          <button type="submit" className="mt-2">
+          <button type="submit" className="mt-2 bg-text text-site">
             Submit
           </button>
         </div>
