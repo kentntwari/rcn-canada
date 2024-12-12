@@ -14,14 +14,13 @@ import { client, queries, EVENTS_QUERY_SCHEMA } from "../sanity";
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 
 import BlurFade from "~/components/animation/BlurFade";
+import UILayoutCarousel from "~/components/uiLayout/Carousel";
 import {
   Carousel,
   CarouselContent,
   CarouselNavigation,
   CarouselItem,
 } from "~/components/motion/Carousel";
-
-import UILayoutCarousel from "~/components/uiLayout/Carousel";
 
 export const meta: MetaFunction = () => {
   return [

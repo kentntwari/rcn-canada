@@ -176,7 +176,10 @@ export const ModalFooter = ({
   );
 };
 
-const Overlay = ({ className }: { className?: string }) => {
+export const Overlay = React.forwardRef<
+  React.ElementRef<typeof motion.div>,
+  React.ComponentPropsWithoutRef<typeof motion.div>
+>(({ className }, ref) => {
   return (
     <motion.div
       initial={{
@@ -196,7 +199,7 @@ const Overlay = ({ className }: { className?: string }) => {
       )}
     ></motion.div>
   );
-};
+});
 
 const CloseIcon = () => {
   const { setOpen } = useModal();
@@ -249,19 +252,3 @@ export const useOutsideClick = (
     };
   }, [ref, callback]);
 };
-
-// export function AnimatedModal() {
-//   return (
-//     <div className="py-40 flex items-center justify-center">
-//       <Modal>
-//         <ModalTrigger className="bg-black dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
-//           Trigger here
-//         </ModalTrigger>
-//         <ModalBody>
-//           <ModalContent>Content here</ModalContent>
-//           <ModalFooter className="gap-4">Footer here</ModalFooter>
-//         </ModalBody>
-//       </Modal>
-//     </div>
-//   );
-// }

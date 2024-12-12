@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import { typeddefer, useTypedLoaderData } from "remix-typedjson";
@@ -42,12 +43,13 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+  const location = useLocation();
 
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
+  useEffect(() => {
+    // (async () => {
+    //   const LocomotiveScroll = (await import("locomotive-scroll")).default;
+    //   const l = new LocomotiveScroll();
+    // })();
   }, []);
 
   return (

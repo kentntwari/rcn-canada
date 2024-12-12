@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, useState, useRef, useEffect } from "react";
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 
 import { useAtomValue } from "jotai";
 import { useElementVisibility } from "@reactuses/core";
@@ -11,13 +11,23 @@ import { AlignRight, X } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { isFooterVisible } from "~/utils/atoms";
 
+import BlurFade from "./animation/BlurFade";
+import { FirstTimerForm } from "./Forms";
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalTrigger,
 } from "~/components/acertinity/Modal";
-import BlurFade from "./animation/BlurFade";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  DialogContent,
+} from "~/components/radix/Dialog";
 
 interface NavbarProps extends ComponentPropsWithoutRef<"nav"> {}
 
@@ -105,8 +115,20 @@ function FloatingNavbar({ className }: ComponentPropsWithoutRef<"div">) {
       >
         <Link to="#events">Upcoming events</Link>
         <Link to="#connect">Connect with us</Link>
-        <Link to="/">first timers</Link>
-        <Link to="/">partnership</Link>
+        <Link
+          to={{
+            hash: "first-timer",
+          }}
+        >
+          first timers
+        </Link>
+        <Link
+          to={{
+            hash: "partnership",
+          }}
+        >
+          partnership
+        </Link>
       </div>
     </div>
   );
@@ -114,6 +136,15 @@ function FloatingNavbar({ className }: ComponentPropsWithoutRef<"div">) {
 
 function DefaultNavbarContent() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFirstTimer, setIsFirstTimer] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash === "#first-timer") {
+      setIsFirstTimer(true);
+      // document.body.removeAttribute("style");
+    } else setIsFirstTimer(false);
+  }, [location.hash]);
+
   function closeMenu() {
     if (isOpen) setIsOpen(false);
   }
@@ -153,22 +184,40 @@ function DefaultNavbarContent() {
         <Link to="#connect" onClick={closeMenu}>
           Connect with us
         </Link>
-        <div className="contents" onClick={closeMenu}>
+        <div className="contents">
+          <Dialog open={isFirstTimer} onOpenChange={setIsFirstTimer}>
+            <DialogTrigger asChild>
+              <Link
+                to={{
+                  hash: "first-timer",
+                }}
+                onClick={closeMenu}
+              >
+                first timers
+              </Link>
+            </DialogTrigger>
+
+            <DialogContent className="max-w-[720px] px-4 py-6 translate-x-0 translate-y-0 left-auto right-0 top-0 bottom-0 bg-site flex flex-col gap-8">
+              <DialogHeader className="flex flex-col gap-2">
+                <DialogTitle>
+                  Is this your first time with RCN Canada?
+                </DialogTitle>
+                <DialogDescription className="font-bold text-2xl">
+                  If so, please fill out this form so we can get to know you.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <FirstTimerForm />
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
           <Link
             to={{
-              pathname: "/",
+              hash: "partnership",
             }}
-            target="_blank"
           >
-            First timers
-          </Link>
-          <Link
-            to={{
-              pathname: "/",
-            }}
-            target="_blank"
-          >
-            Partnership
+            partnership
           </Link>
         </div>
       </div>
@@ -189,7 +238,7 @@ function Give({ children, ...props }: GiveModalProps) {
               *For Canada residents only
             </span>
             <span className="block text-xl">
-              Send an INTERAC e-transfer fron your bank app at{" "}
+              Send an INTERAC e-transfer from your bank app at{" "}
               <span className="underline font-bold">give@rcncanada.com</span>
             </span>
           </div>
