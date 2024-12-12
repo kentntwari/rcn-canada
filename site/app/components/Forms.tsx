@@ -6,7 +6,7 @@ import {
 } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useNavigate } from "@remix-run/react";
 
 import { Input } from "./radix/Input";
 import { CountryCodeInput, PhoneNumberInput } from "./conform/InputConform";
@@ -27,6 +27,8 @@ const DPTS = [
 ];
 
 export function FirstTimerForm() {
+  const navigate = useNavigate();
+
   const fetcher = useFetcher();
 
   const [form, fields] = useForm({
@@ -374,7 +376,7 @@ export function FirstTimerForm() {
         </div>
 
         <div className="col-start-2 justify-self-end flex items-center gap-x-2 *:w-24 *:h-8 *:flex *:items-center *:justify-center *:rounded-lg">
-          <button type="button" className="mt-2">
+          <button type="button" className="mt-2" onClick={() => navigate("/")}>
             Cancel
           </button>
           <button type="submit" className="mt-2 bg-text text-site">
