@@ -1,6 +1,31 @@
 import { z } from "zod";
 
-export const formIntentSchema = z.enum(["register-first-timer"]);
+export const formIntentSchema = z.enum([
+  "register-first-timer",
+  "register-partnership",
+]);
+
+export const partnershipSchema = z.object({
+  fullName: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phoneNumber: z.object({
+    countryCode: z.string().regex(/^\+[1-9][0-9]{0,3}$/, {
+      message: "Country code must start with + and contain 1-4 digits",
+    }),
+    phone: z
+      .string()
+      .regex(/^[0-9]+$/, {
+        message: "Phone number must contain only digits",
+      })
+      .min(6, "Phone number must be at least 6 digits")
+      .max(15, "Phone number must not exceed 15 digits"),
+  }),
+  amount: z.number().min(1, "Amount must be at least 1"),
+  currency: z.enum(["USD", "EUR", "GBP", "CAD"]),
+  frequency: z.enum(["weekly", "monthly", "yearly", "bi-weekly", "quarterly"]),
+  paymentOptions: z.enum(["paypal", "interac"]),
+});
+
 export const firstTimerSchema = z.object({
   fullName: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),

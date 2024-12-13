@@ -12,7 +12,7 @@ import { cn } from "~/lib/utils";
 import { isFooterVisible } from "~/utils/atoms";
 
 import BlurFade from "./animation/BlurFade";
-import { FirstTimerForm } from "./Forms";
+import { FirstTimerForm, PartnershipForm } from "./Forms";
 import {
   Modal,
   ModalBody,
@@ -137,12 +137,17 @@ function FloatingNavbar({ className }: ComponentPropsWithoutRef<"div">) {
 function DefaultNavbarContent() {
   const [isOpen, setIsOpen] = useState(false);
   const [isFirstTimer, setIsFirstTimer] = useState(false);
+  const [isPartnership, setIsPartnership] = useState(false);
   const location = useLocation();
   useEffect(() => {
     if (location.hash === "#first-timer") {
       setIsFirstTimer(true);
-      // document.body.removeAttribute("style");
-    } else setIsFirstTimer(false);
+    } else if (location.hash === "#partnership") {
+      setIsPartnership(true);
+    } else {
+      setIsFirstTimer(false);
+      setIsPartnership(false);
+    }
   }, [location.hash]);
 
   function closeMenu() {
@@ -212,13 +217,36 @@ function DefaultNavbarContent() {
             </DialogContent>
           </Dialog>
 
-          <Link
-            to={{
-              hash: "partnership",
-            }}
-          >
-            partnership
-          </Link>
+          <Dialog open={isPartnership} onOpenChange={setIsPartnership}>
+            <DialogTrigger asChild>
+              <Link
+                to={{
+                  hash: "partnership",
+                }}
+                onClick={closeMenu}
+              >
+                partnership
+              </Link>
+            </DialogTrigger>
+
+            <DialogContent className="max-w-[720px] px-4 py-6 translate-x-0 translate-y-0 left-auto right-0 top-0 bottom-0 bg-site flex flex-col gap-8">
+              <DialogHeader className="flex flex-col gap-2">
+                <DialogTitle>Who is an RCN Canada Partner? </DialogTitle>
+                <DialogDescription className="font-bold text-lg slg:text-2xl">
+                  Like-minded people who would like to partner with us to reach
+                  nations with the gospel of Christ
+                </DialogDescription>
+                <q className="text-sm tracking-wide italic text-balance">
+                  Every man according as he purposeth in his heart, so let him
+                  give; not grudgingly, or of necessity: for God loveth a
+                  cheerful giver. (2 Corinthians 9:7)
+                </q>
+              </DialogHeader>
+              <DialogFooter>
+                <PartnershipForm />
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </>

@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { Resend } from "resend";
 
-import { firstTimerSchema } from "~/utils/schemas";
+import { firstTimerSchema, partnershipSchema } from "~/utils/schemas";
 
 type FirstTimer = z.infer<typeof firstTimerSchema>;
+type Partnership = z.infer<typeof partnershipSchema>;
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -49,6 +50,30 @@ export async function sendFirstTimerForm(data: FirstTimer) {
         <p><strong>A prayer request:</strong>${
           data.description.prayerRequest ?? ""
         }</p>
+      `,
+    });
+
+    return { success: true, data: response };
+  } catch (error) {
+    return { success: false, error };
+  }
+}
+
+export async function sendPartnershipForm(data: Partnership) {
+  try {
+    const response = await resend.emails.send({
+      from: `RCN Website <${process.env.SENDER_EMAIL}>`,
+      to: process.env.PARTNERS_RECIPIENT_EMAIL!,
+      subject: "Partnership pledge",
+      html: `
+        <h2>New partnership submission</h2>
+        <p><strong>Name:</strong>${data.fullName}</p>
+        <p><strong>Phone number:</strong>${data.phoneNumber.countryCode}${data.phoneNumber.phone}</p>
+        <p><strong>Email:</strong>${data.email}</p>
+        <p><strong>Amount:</strong>${data.amount}</p>
+        <p><strong>Currency:</strong>${data.currency}</p>
+        <p><strong>Frequency:</strong>${data.frequency}</p>
+        <p><strong>Preferred payment option:</strong>${data.paymentOptions}</p>
       `,
     });
 

@@ -9,12 +9,13 @@ import { parseWithZod } from "@conform-to/zod";
 import { useFetcher, useNavigate } from "@remix-run/react";
 
 import { Input } from "./radix/Input";
-import { CountryCodeInput, PhoneNumberInput } from "./conform/InputConform";
+import { CountryCodeInput, NumberInput } from "./conform/InputConform";
 import { RadioGroupConform } from "./conform/RadioGroup";
 import { SelectConform } from "./conform/SelectConform";
 import { TextareaConform } from "./conform/TextareaConform";
 
-import { firstTimerSchema } from "~/utils/schemas";
+import { firstTimerSchema, partnershipSchema } from "~/utils/schemas";
+import { c } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 const DPTS = [
   "choir",
@@ -25,6 +26,10 @@ const DPTS = [
   "sanctuary keeper",
   "children teacher",
 ];
+
+const FREQUENCIES = ["weekly", "bi-weekly", "monthly", "quarterly", "yearly"];
+const CURRENCIES = ["USD", "EUR", "GBP", "CAD"];
+const PAYMENT_OPTIONS = ["paypal", "interac"];
 
 export function FirstTimerForm() {
   const navigate = useNavigate();
@@ -93,7 +98,7 @@ export function FirstTimerForm() {
           </label>
           <div className="flex gap-2">
             <CountryCodeInput meta={t.countryCode} aria-label="Country code" />
-            <PhoneNumberInput meta={t.phone} aria-label="Phone number" />
+            <NumberInput meta={t.phone} aria-label="Phone number" />
           </div>
           <small
             className="flex flex-col gap-0.5 text-xs tracking-widest"
@@ -372,6 +377,166 @@ export function FirstTimerForm() {
           <TextareaConform meta={d.prayerRequest} className="min-h-48" />
           <small className="text-xs tracking-widest" style={{ color: "red" }}>
             {d.prayerRequest.errors}
+          </small>
+        </div>
+
+        <div className="col-start-2 justify-self-end flex items-center gap-x-2 *:w-24 *:h-8 *:flex *:items-center *:justify-center *:rounded-lg">
+          <button type="button" className="mt-2" onClick={() => navigate("/")}>
+            Cancel
+          </button>
+          <button type="submit" className="mt-2 bg-text text-site">
+            Submit
+          </button>
+        </div>
+      </fetcher.Form>
+    </FormProvider>
+  );
+}
+
+export function PartnershipForm() {
+  const navigate = useNavigate();
+
+  const fetcher = useFetcher();
+
+  const [form, fields] = useForm({
+    id: "partnership-form",
+    shouldValidate: "onBlur",
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: partnershipSchema });
+    },
+  });
+  const t = fields.phoneNumber.getFieldset();
+
+  return (
+    <FormProvider context={form.context}>
+      <fetcher.Form
+        {...getFormProps(form)}
+        method="POST"
+        action="/api/forms"
+        className="grid grid-cols-2 gap-4 slg:gap-6"
+      >
+        <input type="hidden" name="intent" value="register-partnership" />
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.fullName.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Your name
+          </label>
+          <Input
+            name={fields.fullName.name}
+            id={fields.fullName.id}
+            aria-label="Full name"
+          />
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.fullName.errors}
+          </small>
+        </div>
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.email.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Your Email
+          </label>
+          <Input
+            type="email"
+            name={fields.email.name}
+            id={fields.email.id}
+            aria-label="email address"
+          />
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.email.errors}
+          </small>
+        </div>
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.phoneNumber.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Your phone number
+          </label>
+          <div className="flex gap-2">
+            <CountryCodeInput meta={t.countryCode} aria-label="Country code" />
+            <NumberInput meta={t.phone} aria-label="Phone number" />
+          </div>
+          <small
+            className="flex flex-col gap-0.5 text-xs tracking-widest"
+            style={{ color: "red" }}
+          >
+            <span>{t.countryCode.errors}</span>
+            <span>{t.phone.errors}</span>
+          </small>
+        </div>
+
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.amount.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Amount
+          </label>
+          <NumberInput meta={fields.amount} aria-label="Amount" />
+
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.amount.errors}
+          </small>
+        </div>
+
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.currency.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Currency
+          </label>
+          <RadioGroupConform
+            meta={fields.currency}
+            items={CURRENCIES.map((c) => ({
+              value: c,
+              label: c,
+            }))}
+          />
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.currency.errors}
+          </small>
+        </div>
+
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.frequency.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Frequency
+          </label>
+          <RadioGroupConform
+            meta={fields.frequency}
+            items={FREQUENCIES.map((c) => ({
+              value: c,
+              label: c,
+            }))}
+          />
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.frequency.errors}
+          </small>
+        </div>
+
+        <div className="col-span-2 space-y-2">
+          <label
+            htmlFor={fields.frequency.id}
+            className="block text-sm slg:text-base font-medium"
+          >
+            Payment options
+          </label>
+          <RadioGroupConform
+            meta={fields.paymentOptions}
+            items={PAYMENT_OPTIONS.map((c) => ({
+              value: c,
+              label: c,
+            }))}
+          />
+          <small className="text-xs tracking-widest" style={{ color: "red" }}>
+            {fields.paymentOptions.errors}
           </small>
         </div>
 

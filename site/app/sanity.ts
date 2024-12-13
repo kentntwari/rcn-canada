@@ -64,7 +64,7 @@ export const EVENTS_QUERY_SCHEMA = z.object({
 export const CONTACT_QUERY_SCHEMA = z.tuple([
   z.object({
     channel: z.literal("location"),
-    title: z.literal("Adress"),
+    title: z.literal("Address"),
     data: z.object({
       street: z.string(),
       city: z.string(),
@@ -131,7 +131,7 @@ export const queries = {
   }`,
   CONTACT_QUERY: groq`[{
     "channel": "location",
-      "title":"Adress",
+      "title":"Address",
       "data": *[_type == "location"][0]{street,city,province,postcode}
   },
     {

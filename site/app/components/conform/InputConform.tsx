@@ -8,7 +8,7 @@ export const InputConform = ({
   type,
   ...props
 }: {
-  meta: FieldMetadata<string>;
+  meta: FieldMetadata<string | number>;
   type: Parameters<typeof getInputProps>[1]["type"];
 } & React.ComponentProps<typeof Input>) => {
   return (
@@ -85,7 +85,7 @@ export const CountryCodeInput = React.forwardRef<
   );
 });
 
-export const PhoneNumberInput = React.forwardRef<
+export const NumberInput = React.forwardRef<
   HTMLInputElement,
   Omit<React.ComponentPropsWithoutRef<typeof InputConform>, "type">
 >((props, ref) => {
@@ -120,7 +120,6 @@ export const PhoneNumberInput = React.forwardRef<
       {...props}
       ref={ref}
       type="tel"
-      placeholder="123456789"
       className="font-mono flex-1"
       onKeyDown={handleKeyDown}
       onPaste={handlePaste}
