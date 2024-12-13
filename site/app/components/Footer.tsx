@@ -8,6 +8,7 @@ import { Link } from "@remix-run/react";
 
 import { useElementVisibility } from "@reactuses/core";
 
+import { Give } from "./Give";
 import BlurFade from "./animation/BlurFade";
 
 import { isFooterVisible } from "~/utils/atoms";
@@ -135,13 +136,13 @@ export default function Footer({ data }: { data: ContactQueryType }) {
             <Link to="#events" className="font-normal text-site">
               Our events
             </Link>
-            <Link to="#events" className="font-normal text-site">
-              Giving
-            </Link>
-            <Link to="#events" className="font-normal text-site">
+            <Give>
+              <span className="font-normal text-site">Giving</span>
+            </Give>
+            <Link to="#first-timer" className="font-normal text-site">
               First-timers
             </Link>
-            <Link to="#events" className="font-normal text-site">
+            <Link to="#partnership" className="font-normal text-site">
               Partners
             </Link>
             <Link to="#connect" className="font-regular text-site">
